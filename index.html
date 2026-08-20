@@ -704,23 +704,33 @@ async function showUpdateDetails(id) {
     .eq("id", id)
     .single();
 
-  if (error) {
+  if (error || !data) {
     alert("Details load nahi ho paayi.");
     return;
   }
 
-  const details = `
-Exam: ${data.title || ""}
-Category: ${data.category || ""}
-Department: ${data.department || ""}
-Qualification: ${data.qualification || ""}
-Age: ${data.age_info || ""}
-Important Date: ${data.important_date || ""}
-Details: ${data.short_description || ""}
-  `;
+  document.getElementById("jobGrid").innerHTML = `
+    <div class="job-card details-card">
+      <span class="job-type">${data.category || "Update"}</span>
+      <h2>${data.title || ""}</h2>
 
-  alert(details);
-    }
+      <p>${data.short_description || ""}</p>
+
+      <div class="job-info">
+        🏛️ <strong>Department:</strong> ${data.department || "Not available"}<br><br>
+        🎓 <strong>Qualification:</strong> ${data.qualification || "Notification dekhein"}<br><br>
+        👤 <strong>Age Limit:</strong> ${data.age_info || "Notification dekhein"}<br><br>
+        📅 <strong>Important Date:</strong> ${data.important_date || "Notification dekhein"}
+      </div>
+
+      <br><br>
+
+      <button class="details-btn" onclick="loadUpdates()">
+        ← All Updates par Wapas
+      </button>
+    </div>
+  `;
+}
   loadUpdates();
   </script>
 </body>
