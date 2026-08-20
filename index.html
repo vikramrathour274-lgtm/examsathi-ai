@@ -459,35 +459,85 @@
 
   </main>
   <section class="ai-section">
-    <h2>🤖 ExamSathi AI se Kya Pooch Sakte Hain?</h2>
+  <h2>🤖 ExamSathi AI se Poochho</h2>
 
-    <p>
-      AI Assistant aapko government jobs aur exam preparation ke baare
-      mein guide karega.
-    </p>
+  <p>
+    Government jobs aur exam preparation ke baare mein apna sawaal poochho.
+  </p>
 
-    <div class="ai-questions">
-      <button class="ai-question" onclick="demoQuestion('Aaj ki nayi vacancy batao')">
-        🎙️ Aaj ki nayi vacancy batao
-      </button>
+  <div id="chatMessages" style="
+    max-width: 700px;
+    margin: 20px auto;
+    min-height: 180px;
+    max-height: 350px;
+    overflow-y: auto;
+    text-align: left;
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f8fafc;
+  ">
+    <p><strong>🤖 ExamSathi AI:</strong> Namaste! Apne exam ke baare mein kuch bhi poochho.</p>
+  </div>
 
-      <button class="ai-question" onclick="demoQuestion('SSC GD ki qualification kya hai?')">
-        🎓 SSC GD ki qualification?
-      </button>
+  <div style="
+    max-width: 700px;
+    margin: auto;
+    display: flex;
+    gap: 10px;
+  ">
+    <input
+      type="text"
+      id="aiInput"
+      placeholder="Apna sawaal likhein..."
+      style="
+        flex: 1;
+        padding: 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        font-size: 15px;
+      "
+      onkeydown="if(event.key === 'Enter') askAI()"
+    >
 
-      <button class="ai-question" onclick="demoQuestion('Kya main is vacancy ke liye eligible hoon?')">
-        🎯 Kya main eligible hoon?
-      </button>
+    <button
+      onclick="askAI()"
+      style="
+        width: auto;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #123a8c;
+        color: white;
+        font-weight: bold;
+      "
+    >
+      Send ➤
+    </button>
+  </div>
 
-      <button class="ai-question" onclick="demoQuestion('Previous year questions do')">
-        📚 Previous Year Questions
-      </button>
+  <div class="ai-questions">
+    <button class="ai-question" onclick="demoQuestion('Aaj ki nayi vacancy batao')">
+      🎙️ Aaj ki nayi vacancy batao
+    </button>
 
-      <button class="ai-question" onclick="demoQuestion('Exam notes chahiye')">
-        📄 Exam Notes chahiye
-      </button>
-    </div>
-  </section>
+    <button class="ai-question" onclick="demoQuestion('SSC GD ki qualification kya hai?')">
+      🎓 SSC GD ki qualification?
+    </button>
+
+    <button class="ai-question" onclick="demoQuestion('Kya main is vacancy ke liye eligible hoon?')">
+      🎯 Kya main eligible hoon?
+    </button>
+
+    <button class="ai-question" onclick="demoQuestion('Previous year questions do')">
+      📚 Previous Year Questions
+    </button>
+
+    <button class="ai-question" onclick="demoQuestion('Exam notes chahiye')">
+      📄 Exam Notes chahiye
+    </button>
+  </div>
+</section>
 
 
   <section class="premium-section" id="premium">
