@@ -675,7 +675,7 @@
     .from("updates")
     .select("*")
     .eq("is_published", true)
-    .order("created_at", { ascending: false });
+    .order("id", { ascending: false });
 
   if (error) {
     console.error("Updates load error:", error);
