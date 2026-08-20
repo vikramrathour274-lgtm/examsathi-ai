@@ -522,6 +522,28 @@ async function loadAdminUpdates() {
 
   alert("✏️ Update edit mode mein load ho gaya hai.");
     }
+    async function togglePublish(id, isPublished) {
+  const { error } = await supabaseClient
+    .from("updates")
+    .update({
+      is_published: !isPublished
+    })
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    alert("Status change nahi ho paaya: " + error.message);
+    return;
+  }
+
+  alert(
+    isPublished
+      ? "🙈 Update website se hide ho gaya!"
+      : "👁️ Update dobara publish ho gaya!"
+  );
+
+  loadAdminUpdates();
+}
 async function deleteUpdate(id) {
   const confirmDelete = confirm(
     "Kya aap is update ko delete karna chahte hain?"
