@@ -415,21 +415,57 @@ async function loadAdminUpdates() {
   }
 
   updatesList.innerHTML = data.map((update) => `
-    <div style="
-      border: 1px solid #e5e7eb;
-      padding: 15px;
-      margin-bottom: 12px;
-      border-radius: 10px;
-    ">
-      <strong>${update.title}</strong><br>
-      <small>
-        Category: ${update.category || "Update"} |
-        ${update.department || "No department"}
-      </small>
-    </div>
-  `).join("");
-    }
+  <div style="
+    border: 1px solid #e5e7eb;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+  ">
+    <strong>${update.title}</strong><br>
 
+    <small>
+      Category: ${update.category || "Update"} |
+      ${update.department || "No department"}
+    </small>
+
+    <br><br>
+
+    <button
+      onclick="deleteUpdate(${update.id})"
+      style="
+        width: auto;
+        margin: 0;
+        padding: 8px 14px;
+        background: #dc2626;
+      "
+    >
+      🗑️ Delete
+    </button>
+  </div>
+`).join("");
+    }
+async function deleteUpdate(id) {
+  const confirmDelete = confirm(
+    "Kya aap is update ko delete karna chahte hain?"
+  );
+
+  if (!confirmDelete) return;
+
+  const { error } = await supabaseClient
+    .from("updates")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    console.error(error);
+    alert("Delete nahi ho paaya: " + error.message);
+    return;
+  }
+
+  alert("Update successfully delete ho gaya!");
+  loadAdminUpdates();
+    }
+    
     checkUser();
     loadAdminUpdates();
   </script>
