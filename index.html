@@ -453,143 +453,15 @@
       <h2 id="sectionTitle">Latest Updates</h2>
       <div class="update-count" id="updateCount">6 Updates</div>
     </div>
-
+    
 
     <div class="job-grid" id="jobGrid">
 
-      <!-- DEMO DATA ONLY: Real data later official sources/database se aayega -->
-
-      <div class="job-card" data-category="job">
-        <span class="job-type">💼 Latest Job</span>
-
-        <h3>SSC GD Constable</h3>
-
-        <p>
-          Central Armed Police Forces mein Constable recruitment ki
-          information aur important updates.
-        </p>
-
-        <div class="job-info">
-          🎓 Qualification: 10th Pass<br>
-          📅 Age: Notification ke anusaar<br>
-          🏛️ Department: SSC
-        </div>
-
-        <button class="details-btn" onclick="showDetails('SSC GD Constable')">
-          View Details
-        </button>
-      </div>
-
-
-      <div class="job-card" data-category="job">
-        <span class="job-type">💼 Latest Job</span>
-
-        <h3>Railway Recruitment</h3>
-
-        <p>
-          Railway ki upcoming aur current recruitment updates ek jagah.
-        </p>
-
-        <div class="job-info">
-          🎓 Qualification: Post ke anusaar<br>
-          📅 Department: Indian Railways<br>
-          📌 Type: Government Job
-        </div>
-
-        <button class="details-btn" onclick="showDetails('Railway Recruitment')">
-          View Details
-        </button>
-      </div>
-
-
-      <div class="job-card" data-category="job">
-        <span class="job-type">💼 Latest Job</span>
-
-        <h3>UP Police Recruitment</h3>
-
-        <p>
-          Uttar Pradesh Police ki bharti, qualification aur exam updates.
-        </p>
-
-        <div class="job-info">
-          🎓 Qualification: Post ke anusaar<br>
-          📍 State: Uttar Pradesh<br>
-          🏛️ Department: UP Police
-        </div>
-
-        <button class="details-btn" onclick="showDetails('UP Police Recruitment')">
-          View Details
-        </button>
-      </div>
-
-
-      <div class="job-card" data-category="admit">
-        <span class="job-type">🎫 Admit Card</span>
-
-        <h3>Exam Admit Card Updates</h3>
-
-        <p>
-          Apne upcoming government exam ke admit card ki latest information.
-        </p>
-
-        <div class="job-info">
-          🎫 Category: Admit Card<br>
-          🔔 Status: Demo Update<br>
-          📝 Check: Official Website
-        </div>
-
-        <button class="details-btn" onclick="showDetails('Admit Card Updates')">
-          View Details
-        </button>
-      </div>
-
-
-      <div class="job-card" data-category="result">
-        <span class="job-type">🏆 Result</span>
-
-        <h3>Government Exam Results</h3>
-
-        <p>
-          Sarkari exams ke result aur selection updates.
-        </p>
-
-        <div class="job-info">
-          🏆 Category: Result<br>
-          🔔 Status: Demo Update<br>
-          📝 Check: Official Website
-        </div>
-
-        <button class="details-btn" onclick="showDetails('Government Exam Results')">
-          View Details
-        </button>
-      </div>
-
-
-      <div class="job-card" data-category="answer">
-        <span class="job-type">📝 Answer Key</span>
-
-        <h3>Latest Answer Key</h3>
-
-        <p>
-          Government exams ki provisional aur final answer key updates.
-        </p>
-
-        <div class="job-info">
-          📝 Category: Answer Key<br>
-          🔔 Status: Demo Update<br>
-          🏛️ Source: Official Website
-        </div>
-
-        <button class="details-btn" onclick="showDetails('Latest Answer Key')">
-          View Details
-        </button>
       </div>
 
     </div>
 
   </main>
-
-
   <section class="ai-section">
     <h2>🤖 ExamSathi AI se Kya Pooch Sakte Hain?</h2>
 
@@ -796,19 +668,41 @@
     SUPABASE_KEY
   );
 
-  async function loadUpdates() {
-    const { data, error } = await supabaseClient
-      .from("updates")
-      .select("*")
-      .eq("is_published", true)
-      .order("created_at", { ascending: false });
+ async function loadUpdates() {
+  const jobGrid = document.getElementById("jobGrid");
 
-    if (error) {
-      console.error("Updates load error:", error);
-      return;
-    }
+  const { data, error } = await supabaseClient
+    .from("updates")
+    .select("*")
+    .eq("is_published", true)
+    .order("created_at", { ascending: false });
 
-    console.log("ExamSathi AI Updates:", data);
+  if (error) {
+    console.error("Updates load error:", error);
+    jobGrid.innerHTML = "<p>Updates load nahi ho paayi. Thodi der baad try karein.</p>";
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    jobGrid.innerHTML = "<p>Abhi koi latest update available nahi hai.</p>";
+    return;
+  }
+
+  jobGrid.innerHTML = data.map((update) => `
+    <div class="job-card" data-category="${update.category || ''}">
+      <span class="job-type">${update.category || '📢 Update'}</span>
+      <h3>${update.title || ''}</h3>
+      <p>${update.short_description || ''}</p>
+      <div class="job-info">
+        🏛️ Department: ${update.department || 'Official Source'}<br>
+        🎓 Qualification: ${update.qualification || 'Notification dekhein'}<br>
+        📅 Important Date: ${update.important_date || 'Official notification dekhein'}
+      </div>
+      <button class="details-btn" onclick="showDetails('${update.title || ''}')">
+        View Details
+      </button>
+    </div>
+  `).join("");
   }
 
   loadUpdates();
