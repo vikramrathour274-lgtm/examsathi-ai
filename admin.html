@@ -474,6 +474,44 @@ async function loadAdminUpdates() {
   </div>
 `).join("");
     }
+    async function editUpdate(id) {
+  const { data, error } = await supabaseClient
+    .from("updates")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !data) {
+    alert("Update details load nahi ho paayi.");
+    return;
+  }
+
+  document.getElementById("category").value = data.category || "job";
+  document.getElementById("title").value = data.title || "";
+  document.getElementById("department").value = data.department || "";
+  document.getElementById("short_description").value = data.short_description || "";
+  document.getElementById("total_vacancies").value = data.total_vacancies || "";
+  document.getElementById("qualification").value = data.qualification || "";
+  document.getElementById("age_info").value = data.age_info || "";
+  document.getElementById("salary").value = data.salary || "";
+  document.getElementById("application_start_date").value = data.application_start_date || "";
+  document.getElementById("application_last_date").value = data.application_last_date || "";
+  document.getElementById("exam_date").value = data.exam_date || "";
+  document.getElementById("application_fee").value = data.application_fee || "";
+  document.getElementById("selection_process").value = data.selection_process || "";
+  document.getElementById("exam_pattern").value = data.exam_pattern || "";
+  document.getElementById("full_details").value = data.full_details || "";
+  document.getElementById("official_notification_url").value = data.official_notification_url || "";
+  document.getElementById("apply_online_url").value = data.apply_online_url || "";
+
+  window.editingUpdateId = id;
+
+  form.scrollIntoView({
+    behavior: "smooth"
+  });
+
+  alert("✏️ Update edit mode mein load ho gaya hai.");
+    }
 async function deleteUpdate(id) {
   const confirmDelete = confirm(
     "Kya aap is update ko delete karna chahte hain?"
