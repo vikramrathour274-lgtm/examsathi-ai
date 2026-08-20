@@ -401,14 +401,11 @@
     </p>
 
     <div class="search-box">
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="SSC GD, Railway, Police ya koi exam search karein..."
+      <input type="text" id="searchInput" placeholder="SSC GD, Railway, Police ya koi exam search karein...">
         onkeyup="searchJobs()"
       >
 
-      <button onclick="searchJobs()">Search</button>
+      <button onclick="searchUpdates()">Search</button>
     </div>
 
     <div class="voice-area">
@@ -576,7 +573,25 @@
     }
 
 
-    function searchJobs() {
+     {function searchUpdates() {
+  const searchText = document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  const cards = document.querySelectorAll(".job-card");
+
+  cards.forEach((card) => {
+    const cardText = card.innerText.toLowerCase();
+
+    if (cardText.includes(searchText)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+    }
 
       const searchText =
         document.getElementById('searchInput').value.toLowerCase();
