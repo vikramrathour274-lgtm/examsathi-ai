@@ -751,7 +751,21 @@ async function showUpdateDetails(id) {
       </div>
 
       <br>
+${data.official_notification_url ? `
+  <a href="${data.official_notification_url}" target="_blank">
+    <button class="details-btn">
+      📄 Official Notification
+    </button>
+  </a>
+` : ""}
 
+${data.apply_online_url ? `
+  <a href="${data.apply_online_url}" target="_blank">
+    <button class="details-btn">
+      🚀 Apply Online
+    </button>
+  </a>
+` : ""}
       <button class="details-btn" onclick="loadUpdates()">
         ← All Updates par Wapas
       </button>
