@@ -582,44 +582,25 @@
 
   const cards = document.querySelectorAll(".job-card");
 
+  let visibleCount = 0;
+
   cards.forEach((card) => {
     const cardText = card.innerText.toLowerCase();
 
     if (cardText.includes(searchText)) {
       card.style.display = "block";
+      visibleCount++;
     } else {
       card.style.display = "none";
     }
   });
-    }
 
-      const searchText =
-        document.getElementById('searchInput').value.toLowerCase();
+  document.getElementById("sectionTitle").innerText =
+    searchText ? "Search Results" : "Latest Updates";
 
-      const cards = document.querySelectorAll('.job-card');
-
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-
-        const cardText = card.innerText.toLowerCase();
-
-        if (cardText.includes(searchText)) {
-          card.style.display = 'block';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-
-      });
-
-      document.getElementById('sectionTitle').innerText =
-        searchText ? 'Search Results' : 'Latest Updates';
-
-      document.getElementById('updateCount').innerText =
-        visibleCount + ' Results';
-
-    }
+  document.getElementById("updateCount").innerText =
+    visibleCount + (searchText ? " Results" : " Updates");
+}
 
 
 
