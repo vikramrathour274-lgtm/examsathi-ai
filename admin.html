@@ -429,8 +429,18 @@ async function loadAdminUpdates() {
     </small>
 
     <br><br>
+<button
+  onclick="editUpdate(${update.id})"
+  style="
+    width: auto;
+    margin: 0 8px 0 0;
+    padding: 8px 14px;
+  "
+>
+  ✏️ Edit
+</button>
 
-    <button
+  <button
       onclick="deleteUpdate(${update.id})"
       style="
         width: auto;
