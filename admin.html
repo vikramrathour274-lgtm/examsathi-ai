@@ -392,9 +392,46 @@
 
       updateForm.reset();
     });
+async function loadAdminUpdates() {
+  const updatesList = document.getElementById("updatesList");
 
+  updatesList.innerHTML = "⏳ Updates load ho rahe hain...";
+
+  const { data, error } = await supabaseClient
+    .from("updates")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    updatesList.innerHTML =
+      "❌ Updates load nahi ho paaye: " + error.message;
+    return;
+  }
+
+  if (!data || data.length === 0) {
+    updatesList.innerHTML = "Abhi koi update available nahi hai.";
+    return;
+  }
+
+  updatesList.innerHTML = data.map((update) => `
+    <div style="
+      border: 1px solid #e5e7eb;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+    ">
+      <strong>${update.title}</strong><br>
+      <small>
+        Category: ${update.category || "Update"} |
+        ${update.department || "No department"}
+      </small>
+    </div>
+  `).join("");
+    }
 
     checkUser();
+    loadAdminUpdates();
   </script>
 
 </body>
