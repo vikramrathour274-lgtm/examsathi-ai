@@ -786,5 +786,32 @@
 
   </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL = "https://hzskmosmpqwqurtrqbza.supabase.co";
+
+  const SUPABASE_KEY = "sb_publishable_zOLpGIbaEVV2nJdi2dnnNA_mai6SsTJ";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  async function loadUpdates() {
+    const { data, error } = await supabaseClient
+      .from("updates")
+      .select("*")
+      .eq("is_published", true)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Updates load error:", error);
+      return;
+    }
+
+    console.log("ExamSathi AI Updates:", data);
+  }
+
+  loadUpdates();
+  </script>
 </body>
 </html>
