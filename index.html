@@ -700,13 +700,36 @@
         🎓 Qualification: ${update.qualification || 'Notification dekhein'}<br>
         📅 Important Date: ${update.important_date || 'Official notification dekhein'}
       </div>
-      <button class="details-btn" onclick="showDetails('${update.title || ''}')">
-        View Details
-      </button>
+      <button class="details-btn" onclick="showUpdateDetails(${update.id})">
+  View Details
+</button>
     </div>
   `).join("");
   }
+async function showUpdateDetails(id) {
+  const { data, error } = await supabaseClient
+    .from("updates")
+    .select("*")
+    .eq("id", id)
+    .single();
 
+  if (error) {
+    alert("Details load nahi ho paayi.");
+    return;
+  }
+
+  const details = `
+Exam: ${data.title || ""}
+Category: ${data.category || ""}
+Department: ${data.department || ""}
+Qualification: ${data.qualification || ""}
+Age: ${data.age_info || ""}
+Important Date: ${data.important_date || ""}
+Details: ${data.short_description || ""}
+  `;
+
+  alert(details);
+    }
   loadUpdates();
   </script>
 </body>
