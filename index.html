@@ -678,10 +678,12 @@
     .order("id", { ascending: false });
 
   if (error) {
-    console.error("Updates load error:", error);
-    jobGrid.innerHTML = "<p>Updates load nahi ho paayi. Thodi der baad try karein.</p>";
-    return;
-  }
+  console.error("Updates load error:", error);
+  jobGrid.innerHTML = "<p>Supabase Error: " + error.message + "</p>";
+  return;
+}
+
+  
 
   if (!data || data.length === 0) {
     jobGrid.innerHTML = "<p>Abhi koi latest update available nahi hai.</p>";
