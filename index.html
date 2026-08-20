@@ -707,28 +707,58 @@ async function showUpdateDetails(id) {
     return;
   }
 
+  document.getElementById("sectionTitle").innerText =
+    data.title || "Exam Details";
+
+  document.getElementById("updateCount").innerText =
+    "Exam Details";
+
   document.getElementById("jobGrid").innerHTML = `
     <div class="job-card details-card">
       <span class="job-type">${data.category || "Update"}</span>
+
       <h2>${data.title || ""}</h2>
 
       <p>${data.short_description || ""}</p>
 
       <div class="job-info">
         🏛️ <strong>Department:</strong> ${data.department || "Not available"}<br><br>
+
+        🔢 <strong>Total Vacancies:</strong> ${data.total_vacancies || "Notification dekhein"}<br><br>
+
         🎓 <strong>Qualification:</strong> ${data.qualification || "Notification dekhein"}<br><br>
+
         👤 <strong>Age Limit:</strong> ${data.age_info || "Notification dekhein"}<br><br>
-        📅 <strong>Important Date:</strong> ${data.important_date || "Notification dekhein"}
+
+        💰 <strong>Salary:</strong> ${data.salary || "Notification dekhein"}<br><br>
+
+        📅 <strong>Application Start:</strong> ${data.application_start_date || "Notification dekhein"}<br><br>
+
+        ⏰ <strong>Last Date:</strong> ${data.application_last_date || "Notification dekhein"}<br><br>
+
+        📝 <strong>Exam Date:</strong> ${data.exam_date || "To be announced"}<br><br>
+
+        💳 <strong>Application Fee:</strong> ${data.application_fee || "Notification dekhein"}<br><br>
+
+        🎯 <strong>Selection Process:</strong><br>
+        ${data.selection_process || "Notification dekhein"}<br><br>
+
+        📚 <strong>Exam Pattern:</strong><br>
+        ${data.exam_pattern || "Notification dekhein"}<br><br>
+
+        📋 <strong>Complete Details:</strong><br>
+        ${data.full_details || "Official notification dekhein"}
       </div>
 
-      <br><br>
+      <br>
 
       <button class="details-btn" onclick="loadUpdates()">
         ← All Updates par Wapas
       </button>
     </div>
   `;
-}
+    }
+    
   loadUpdates();
   </script>
 </body>
