@@ -409,7 +409,7 @@ if (window.editingUpdateId) {
   message.textContent = "✅ Update successfully publish ho gaya!";
 }
 
-form.reset();
+updateForm.reset();
 loadAdminUpdates();
     });
 async function loadAdminUpdates() {
@@ -506,9 +506,9 @@ async function loadAdminUpdates() {
 
   window.editingUpdateId = id;
 
-  form.scrollIntoView({
-    behavior: "smooth"
-  });
+  updateForm.scrollIntoView({
+  behavior: "smooth"
+});
 
   alert("✏️ Update edit mode mein load ho gaya hai.");
     }
