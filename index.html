@@ -654,24 +654,39 @@
 
 
 
-    function askAI() {
+    function addChatMessage(sender, text) {
+  const chatMessages = document.getElementById("chatMessages");
 
-      alert(
-        '🎙️ ExamSathi AI Voice Assistant\n\n' +
-        'AI Voice feature agle phase mein OpenAI/API aur voice technology se connect hoga.'
-      );
+  const message = document.createElement("p");
+  message.innerHTML = `<strong>${sender}:</strong> ${text}`;
 
-    }
+  chatMessages.appendChild(message);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
 
+function askAI() {
+  const aiInput = document.getElementById("aiInput");
+  const question = aiInput.value.trim();
 
-    function demoQuestion(question) {
+  if (!question) {
+    return;
+  }
 
-      alert(
-        '🤖 ExamSathi AI\n\nAapne poochha:\n"' +
-        question +
-        '"\n\nAgle phase mein iska real AI answer yahin milega.'
-      );
+  addChatMessage("👤 Aap", question);
 
+  aiInput.value = "";
+
+  setTimeout(() => {
+    addChatMessage(
+      "🤖 ExamSathi AI",
+      "Main abhi AI system se connect ho raha hoon. Agle step mein main aapke sawaal ka asli jawab dunga."
+    );
+  }, 500);
+}
+
+function demoQuestion(question) {
+  document.getElementById("aiInput").value = question;
+  askAI();
     }
 
 
