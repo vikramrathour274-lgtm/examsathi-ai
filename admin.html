@@ -64,7 +64,7 @@
 
     button {
       width: 100%;
-      margin-top: 25px;
+      margin-top: 20px;
       padding: 14px;
       border: none;
       border-radius: 8px;
@@ -75,8 +75,8 @@
       cursor: pointer;
     }
 
-    button:hover {
-      opacity: 0.9;
+    .logout-btn {
+      background: #991b1b;
     }
 
     #message {
@@ -95,6 +95,18 @@
       background: #fee2e2;
       color: #991b1b;
     }
+
+    .admin-info {
+      background: #e8efff;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    #loginSection,
+    #adminSection {
+      display: none;
+    }
   </style>
 </head>
 
@@ -102,11 +114,49 @@
 
   <header>
     <h1>🤖 ExamSathi AI Admin Panel</h1>
-    <p>Naya Government Exam Update Add Karein</p>
+    <p>Government Exam Updates Manage Karein</p>
   </header>
 
   <div class="container">
-    <div class="card">
+
+    <!-- LOGIN -->
+
+    <div class="card" id="loginSection">
+      <h2>🔐 Admin Login</h2>
+
+      <form id="loginForm">
+
+        <label>Email</label>
+        <input
+          type="email"
+          id="loginEmail"
+          required
+          placeholder="Admin email"
+        >
+
+        <label>Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          required
+          placeholder="Password"
+        >
+
+        <button type="submit">🔐 Login Karein</button>
+
+      </form>
+
+      <div id="loginMessage"></div>
+    </div>
+
+
+    <!-- ADMIN PANEL -->
+
+    <div class="card" id="adminSection">
+
+      <div class="admin-info">
+        👤 Logged in as: <strong id="adminEmail"></strong>
+      </div>
 
       <h2>➕ Add New Update</h2>
 
@@ -172,10 +222,15 @@
 
       </form>
 
-      <div id="message"></div>
+      <button class="logout-btn" id="logoutBtn">
+        🚪 Logout
+      </button>
 
+      <div id="message"></div>
     </div>
+
   </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -183,16 +238,108 @@
     const SUPABASE_URL = "https://hzskmosmpqwqurtrqbza.supabase.co";
     const SUPABASE_KEY = "sb_publishable_zOLpGIbaEVV2nJdi2dnnNA_mai6SsTJ";
 
+    const ADMIN_EMAIL = "vikramrathour274@gmail.com";
+
     const supabaseClient = supabase.createClient(
       SUPABASE_URL,
       SUPABASE_KEY
     );
 
-    const form = document.getElementById("updateForm");
+    const loginSection = document.getElementById("loginSection");
+    const adminSection = document.getElementById("adminSection");
+    const loginForm = document.getElementById("loginForm");
+    const updateForm = document.getElementById("updateForm");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const loginMessage = document.getElementById("loginMessage");
     const message = document.getElementById("message");
 
-    form.addEventListener("submit", async function(event) {
+
+    function showLogin() {
+      loginSection.style.display = "block";
+      adminSection.style.display = "none";
+    }
+
+
+    function showAdmin(user) {
+      loginSection.style.display = "none";
+      adminSection.style.display = "block";
+
+      document.getElementById("adminEmail").textContent =
+        user.email;
+    }
+
+
+    async function checkUser() {
+      const {
+        data: { user }
+      } = await supabaseClient.auth.getUser();
+
+      if (user && user.email === ADMIN_EMAIL) {
+        showAdmin(user);
+      } else {
+        await supabaseClient.auth.signOut();
+        showLogin();
+      }
+    }
+
+
+    loginForm.addEventListener("submit", async function(event) {
       event.preventDefault();
+
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+
+      loginMessage.style.display = "block";
+      loginMessage.textContent = "⏳ Login ho raha hai...";
+
+      const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password
+        });
+
+      if (error) {
+        loginMessage.className = "error";
+        loginMessage.textContent =
+          "❌ Login failed: " + error.message;
+        return;
+      }
+
+      if (
+        data.user &&
+        data.user.email === ADMIN_EMAIL
+      ) {
+        loginMessage.style.display = "none";
+        showAdmin(data.user);
+      } else {
+        await supabaseClient.auth.signOut();
+
+        loginMessage.className = "error";
+        loginMessage.textContent =
+          "❌ Aapko admin access nahi hai.";
+      }
+    });
+
+
+    logoutBtn.addEventListener("click", async function() {
+      await supabaseClient.auth.signOut();
+      showLogin();
+    });
+
+
+    updateForm.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const {
+        data: { user }
+      } = await supabaseClient.auth.getUser();
+
+      if (!user || user.email !== ADMIN_EMAIL) {
+        alert("Admin login required.");
+        showLogin();
+        return;
+      }
 
       const updateData = {
         category: document.getElementById("category").value,
@@ -210,8 +357,10 @@
         selection_process: document.getElementById("selection_process").value,
         exam_pattern: document.getElementById("exam_pattern").value,
         full_details: document.getElementById("full_details").value,
-        official_notification_url: document.getElementById("official_notification_url").value,
-        apply_online_url: document.getElementById("apply_online_url").value,
+        official_notification_url:
+          document.getElementById("official_notification_url").value,
+        apply_online_url:
+          document.getElementById("apply_online_url").value,
         is_published: true
       };
 
@@ -231,11 +380,15 @@
       }
 
       message.className = "success";
-      message.textContent = "✅ Update successfully publish ho gaya!";
+      message.textContent =
+        "✅ Update successfully publish ho gaya!";
 
-      form.reset();
+      updateForm.reset();
     });
+
+
+    checkUser();
   </script>
 
 </body>
-</html>
+  </html>
