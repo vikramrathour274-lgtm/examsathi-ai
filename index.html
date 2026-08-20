@@ -1,12 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>ExamSathi AI - Sarkari Naukri ka Smart Saathi</title>
+
   <style>
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -16,13 +23,22 @@
       color: #1f2937;
     }
 
+    button {
+      cursor: pointer;
+    }
+
+    /* HEADER */
+
     header {
-      background: #1d4ed8;
+      background: #123a8c;
       color: white;
-      padding: 18px 5%;
+      padding: 14px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     .logo {
@@ -34,174 +50,335 @@
       color: #fbbf24;
     }
 
-    .premium {
+    .premium-top {
       background: #fbbf24;
       color: #111827;
-      padding: 10px 14px;
-      border-radius: 8px;
+      padding: 9px 14px;
+      border-radius: 20px;
       font-weight: bold;
+      font-size: 14px;
+      border: none;
     }
 
+    /* HERO */
+
     .hero {
+      background: linear-gradient(135deg, #123a8c, #2563eb);
+      color: white;
       text-align: center;
-      padding: 55px 20px 40px;
-      background: white;
+      padding: 55px 20px 45px;
     }
 
     .hero h1 {
       margin: 0;
-      font-size: 34px;
-      color: #1d4ed8;
+      font-size: 36px;
     }
 
     .hero p {
-      font-size: 18px;
-      color: #6b7280;
-      max-width: 650px;
+      font-size: 17px;
+      max-width: 700px;
       margin: 15px auto;
+      color: #e5edff;
+      line-height: 1.6;
     }
 
+    /* SEARCH */
+
     .search-box {
+      max-width: 750px;
+      margin: 25px auto 0;
       display: flex;
-      max-width: 700px;
-      margin: 25px auto;
-      background: #f3f4f6;
+      background: white;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #d1d5db;
     }
 
     .search-box input {
       flex: 1;
       border: none;
-      background: transparent;
-      padding: 16px;
+      padding: 17px;
       font-size: 16px;
       outline: none;
     }
 
     .search-box button {
       border: none;
-      background: #1d4ed8;
-      color: white;
-      padding: 0 22px;
-      font-size: 16px;
+      background: #fbbf24;
+      color: #111827;
+      padding: 0 25px;
+      font-weight: bold;
+      font-size: 15px;
     }
 
-    .voice-box {
-      margin: 25px auto;
-      max-width: 500px;
-      padding: 22px;
-      background: #eff6ff;
-      border-radius: 16px;
+    /* VOICE */
+
+    .voice-area {
+      margin-top: 22px;
     }
 
     .voice-button {
-      border: none;
-      background: #1d4ed8;
+      border: 2px solid white;
+      background: rgba(255,255,255,0.12);
       color: white;
-      font-size: 18px;
-      padding: 16px 24px;
+      padding: 14px 24px;
       border-radius: 30px;
-    }
-
-    .voice-box p {
-      margin-bottom: 0;
-      color: #374151;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    .section-title {
-      text-align: center;
-      font-size: 28px;
-      margin-bottom: 25px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 14px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    }
-
-    .card h3 {
-      margin-top: 0;
-      color: #1d4ed8;
-    }
-
-    .premium-section {
-      background: #1d4ed8;
-      color: white;
-      padding: 45px 20px;
-      text-align: center;
-    }
-
-    .premium-section h2 {
-      margin-top: 0;
-      font-size: 30px;
-    }
-
-    .price {
-      font-size: 38px;
-      font-weight: bold;
-      color: #fbbf24;
-    }
-
-    .premium-features {
-      list-style: none;
-      padding: 0;
-      max-width: 500px;
-      margin: 20px auto;
-      text-align: left;
-    }
-
-    .premium-features li {
-      padding: 8px;
-    }
-
-    .subscribe {
-      background: #fbbf24;
-      border: none;
-      padding: 15px 25px;
-      border-radius: 8px;
       font-size: 17px;
       font-weight: bold;
     }
 
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: #111827;
+    .voice-area p {
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    /* NAVIGATION */
+
+    .nav-section {
+      background: white;
+      padding: 16px 5%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .category-btn {
+      border: 1px solid #dbe2f0;
+      background: #f8fafc;
+      padding: 10px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      color: #123a8c;
+      font-weight: bold;
+    }
+
+    .category-btn:hover,
+    .category-btn.active {
+      background: #123a8c;
       color: white;
     }
 
+    /* MAIN */
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 27px;
+    }
+
+    .update-count {
+      background: #e8efff;
+      color: #123a8c;
+      padding: 8px 13px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* CARDS */
+
+    .job-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .job-card {
+      background: white;
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+      border: 1px solid #edf0f5;
+      transition: 0.2s;
+    }
+
+    .job-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .job-type {
+      display: inline-block;
+      background: #e8efff;
+      color: #123a8c;
+      padding: 6px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .job-card h3 {
+      margin: 14px 0 12px;
+      font-size: 19px;
+      color: #172554;
+    }
+
+    .job-card p {
+      color: #5b6473;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .job-info {
+      border-top: 1px solid #edf0f5;
+      margin-top: 15px;
+      padding-top: 12px;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .details-btn {
+      width: 100%;
+      margin-top: 16px;
+      border: none;
+      background: #123a8c;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    /* AI SECTION */
+
+    .ai-section {
+      background: white;
+      margin: 15px auto 45px;
+      max-width: 1110px;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+      text-align: center;
+    }
+
+    .ai-section h2 {
+      color: #123a8c;
+      margin-top: 0;
+    }
+
+    .ai-questions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .ai-question {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      padding: 10px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    /* PREMIUM */
+
+    .premium-section {
+      background: linear-gradient(135deg, #111827, #123a8c);
+      color: white;
+      text-align: center;
+      padding: 55px 20px;
+    }
+
+    .premium-section h2 {
+      margin: 0;
+      font-size: 31px;
+    }
+
+    .price {
+      color: #fbbf24;
+      font-size: 40px;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .premium-box {
+      max-width: 650px;
+      margin: 25px auto;
+      text-align: left;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+    }
+
+    .premium-item {
+      background: rgba(255,255,255,0.08);
+      padding: 13px;
+      border-radius: 10px;
+    }
+
+    .subscribe-btn {
+      background: #fbbf24;
+      color: #111827;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #0b1220;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    /* MOBILE */
+
     @media (max-width: 600px) {
       header {
-        padding: 15px;
+        padding: 13px 15px;
       }
 
       .logo {
-        font-size: 20px;
+        font-size: 19px;
+      }
+
+      .premium-top {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+
+      .hero {
+        padding: 45px 15px 40px;
       }
 
       .hero h1 {
-        font-size: 27px;
+        font-size: 29px;
+      }
+
+      .search-box input {
+        padding: 15px 10px;
       }
 
       .search-box button {
         padding: 0 14px;
+      }
+
+      .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
       }
     }
   </style>
@@ -211,69 +388,403 @@
 
   <header>
     <div class="logo">Exam<span>Sathi</span> AI 🤖</div>
-    <div class="premium">⭐ Premium ₹101</div>
+    <button class="premium-top" onclick="showPremium()">⭐ Premium ₹101</button>
   </header>
+
 
   <section class="hero">
     <h1>Sarkari Naukri ka Smart AI Saathi 🇮🇳</h1>
-    <p>Latest Vacancy, Admit Card, Result aur AI se apne exam ke baare mein poochho.</p>
+
+    <p>
+      Latest Government Jobs, Admit Cards, Results aur AI se apne
+      exam ke baare mein aasaan bhasha mein poochho.
+    </p>
 
     <div class="search-box">
-      <input type="text" placeholder="Koi vacancy ya exam search karein...">
-      <button>Search</button>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="SSC GD, Railway, Police ya koi exam search karein..."
+        onkeyup="searchJobs()"
+      >
+
+      <button onclick="searchJobs()">Search</button>
     </div>
 
-    <div class="voice-box">
-      <button class="voice-button">🎙️ ExamSathi AI se Bolo</button>
-      <p>"Aaj ki nayi vacancy batao" ya "Kya main SSC GD ke liye eligible hoon?"</p>
-    </div>
-  </section>
+    <div class="voice-area">
+      <button class="voice-button" onclick="askAI()">
+        🎙️ ExamSathi AI se Bolo
+      </button>
 
-  <section class="container">
-    <h2 class="section-title">Latest Updates</h2>
-
-    <div class="grid">
-      <div class="card">
-        <h3>💼 Latest Jobs</h3>
-        <p>Nayi Sarkari Vacancies dekhein aur official notification paayein.</p>
-      </div>
-
-      <div class="card">
-        <h3>🎫 Admit Cards</h3>
-        <p>Apne exam ke latest admit card updates dekhein.</p>
-      </div>
-
-      <div class="card">
-        <h3>🏆 Results</h3>
-        <p>Sarkari exams ke latest results check karein.</p>
-      </div>
-
-      <div class="card">
-        <h3>📝 Answer Keys</h3>
-        <p>Exam answer keys aur important updates dekhein.</p>
-      </div>
+      <p>
+        "Aaj ki nayi vacancy batao" ya
+        "Kya main SSC GD ke liye eligible hoon?"
+      </p>
     </div>
   </section>
 
-  <section class="premium-section">
+
+  <section class="nav-section">
+    <button class="category-btn active" onclick="filterJobs('all', this)">
+      🔥 All Updates
+    </button>
+
+    <button class="category-btn" onclick="filterJobs('job', this)">
+      💼 Latest Jobs
+    </button>
+
+    <button class="category-btn" onclick="filterJobs('admit', this)">
+      🎫 Admit Cards
+    </button>
+
+    <button class="category-btn" onclick="filterJobs('result', this)">
+      🏆 Results
+    </button>
+
+    <button class="category-btn" onclick="filterJobs('answer', this)">
+      📝 Answer Keys
+    </button>
+  </section>
+
+
+  <main class="container">
+
+    <div class="section-heading">
+      <h2 id="sectionTitle">Latest Updates</h2>
+      <div class="update-count" id="updateCount">6 Updates</div>
+    </div>
+
+
+    <div class="job-grid" id="jobGrid">
+
+      <!-- DEMO DATA ONLY: Real data later official sources/database se aayega -->
+
+      <div class="job-card" data-category="job">
+        <span class="job-type">💼 Latest Job</span>
+
+        <h3>SSC GD Constable</h3>
+
+        <p>
+          Central Armed Police Forces mein Constable recruitment ki
+          information aur important updates.
+        </p>
+
+        <div class="job-info">
+          🎓 Qualification: 10th Pass<br>
+          📅 Age: Notification ke anusaar<br>
+          🏛️ Department: SSC
+        </div>
+
+        <button class="details-btn" onclick="showDetails('SSC GD Constable')">
+          View Details
+        </button>
+      </div>
+
+
+      <div class="job-card" data-category="job">
+        <span class="job-type">💼 Latest Job</span>
+
+        <h3>Railway Recruitment</h3>
+
+        <p>
+          Railway ki upcoming aur current recruitment updates ek jagah.
+        </p>
+
+        <div class="job-info">
+          🎓 Qualification: Post ke anusaar<br>
+          📅 Department: Indian Railways<br>
+          📌 Type: Government Job
+        </div>
+
+        <button class="details-btn" onclick="showDetails('Railway Recruitment')">
+          View Details
+        </button>
+      </div>
+
+
+      <div class="job-card" data-category="job">
+        <span class="job-type">💼 Latest Job</span>
+
+        <h3>UP Police Recruitment</h3>
+
+        <p>
+          Uttar Pradesh Police ki bharti, qualification aur exam updates.
+        </p>
+
+        <div class="job-info">
+          🎓 Qualification: Post ke anusaar<br>
+          📍 State: Uttar Pradesh<br>
+          🏛️ Department: UP Police
+        </div>
+
+        <button class="details-btn" onclick="showDetails('UP Police Recruitment')">
+          View Details
+        </button>
+      </div>
+
+
+      <div class="job-card" data-category="admit">
+        <span class="job-type">🎫 Admit Card</span>
+
+        <h3>Exam Admit Card Updates</h3>
+
+        <p>
+          Apne upcoming government exam ke admit card ki latest information.
+        </p>
+
+        <div class="job-info">
+          🎫 Category: Admit Card<br>
+          🔔 Status: Demo Update<br>
+          📝 Check: Official Website
+        </div>
+
+        <button class="details-btn" onclick="showDetails('Admit Card Updates')">
+          View Details
+        </button>
+      </div>
+
+
+      <div class="job-card" data-category="result">
+        <span class="job-type">🏆 Result</span>
+
+        <h3>Government Exam Results</h3>
+
+        <p>
+          Sarkari exams ke result aur selection updates.
+        </p>
+
+        <div class="job-info">
+          🏆 Category: Result<br>
+          🔔 Status: Demo Update<br>
+          📝 Check: Official Website
+        </div>
+
+        <button class="details-btn" onclick="showDetails('Government Exam Results')">
+          View Details
+        </button>
+      </div>
+
+
+      <div class="job-card" data-category="answer">
+        <span class="job-type">📝 Answer Key</span>
+
+        <h3>Latest Answer Key</h3>
+
+        <p>
+          Government exams ki provisional aur final answer key updates.
+        </p>
+
+        <div class="job-info">
+          📝 Category: Answer Key<br>
+          🔔 Status: Demo Update<br>
+          🏛️ Source: Official Website
+        </div>
+
+        <button class="details-btn" onclick="showDetails('Latest Answer Key')">
+          View Details
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <section class="ai-section">
+    <h2>🤖 ExamSathi AI se Kya Pooch Sakte Hain?</h2>
+
+    <p>
+      AI Assistant aapko government jobs aur exam preparation ke baare
+      mein guide karega.
+    </p>
+
+    <div class="ai-questions">
+      <button class="ai-question" onclick="demoQuestion('Aaj ki nayi vacancy batao')">
+        🎙️ Aaj ki nayi vacancy batao
+      </button>
+
+      <button class="ai-question" onclick="demoQuestion('SSC GD ki qualification kya hai?')">
+        🎓 SSC GD ki qualification?
+      </button>
+
+      <button class="ai-question" onclick="demoQuestion('Kya main is vacancy ke liye eligible hoon?')">
+        🎯 Kya main eligible hoon?
+      </button>
+
+      <button class="ai-question" onclick="demoQuestion('Previous year questions do')">
+        📚 Previous Year Questions
+      </button>
+
+      <button class="ai-question" onclick="demoQuestion('Exam notes chahiye')">
+        📄 Exam Notes chahiye
+      </button>
+    </div>
+  </section>
+
+
+  <section class="premium-section" id="premium">
+
     <h2>👑 ExamSathi AI Premium</h2>
+
     <div class="price">₹101 / 45 Days</div>
 
-    <ul class="premium-features">
-      <li>🎙️ AI Voice Assistant</li>
-      <li>🎯 Personal Eligibility Checker</li>
-      <li>📚 Previous Year Questions</li>
-      <li>📄 Exam-wise PDF Notes</li>
-      <li>🧠 Personalized Study Plan</li>
-      <li>🔔 Important Vacancy Alerts</li>
-    </ul>
+    <p>
+      Government Exam Updates ke saath apna personal AI Exam Assistant paayein.
+    </p>
 
-    <button class="subscribe">Premium Unlock Karein</button>
+
+    <div class="premium-box">
+
+      <div class="premium-item">🎙️ AI Voice Assistant</div>
+
+      <div class="premium-item">🎯 Personal Eligibility Checker</div>
+
+      <div class="premium-item">📚 Previous Year Questions</div>
+
+      <div class="premium-item">📄 Exam-wise PDF Notes</div>
+
+      <div class="premium-item">🧠 Personalized Study Plan</div>
+
+      <div class="premium-item">🔔 Important Vacancy Alerts</div>
+
+    </div>
+
+
+    <button class="subscribe-btn" onclick="subscribe()">
+      Premium Unlock Karein
+    </button>
+
   </section>
 
+
   <footer>
-    © 2026 ExamSathi AI | Sarkari Naukri ka Smart Saathi
+    <strong>ExamSathi AI 🤖</strong><br>
+    Sarkari Naukri aur Exam Preparation ka Smart Saathi<br><br>
+    © 2026 ExamSathi AI
   </footer>
 
+
+  <script>
+
+    function filterJobs(category, button) {
+
+      const cards = document.querySelectorAll('.job-card');
+      const buttons = document.querySelectorAll('.category-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+
+      });
+
+      document.getElementById('updateCount').innerText =
+        visibleCount + ' Updates';
+
+      const titles = {
+        all: 'Latest Updates',
+        job: 'Latest Government Jobs',
+        admit: 'Latest Admit Cards',
+        result: 'Latest Results',
+        answer: 'Latest Answer Keys'
+      };
+
+      document.getElementById('sectionTitle').innerText =
+        titles[category];
+
+    }
+
+
+    function searchJobs() {
+
+      const searchText =
+        document.getElementById('searchInput').value.toLowerCase();
+
+      const cards = document.querySelectorAll('.job-card');
+
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+
+        const cardText = card.innerText.toLowerCase();
+
+        if (cardText.includes(searchText)) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+
+      });
+
+      document.getElementById('sectionTitle').innerText =
+        searchText ? 'Search Results' : 'Latest Updates';
+
+      document.getElementById('updateCount').innerText =
+        visibleCount + ' Results';
+
+    }
+
+
+    function showDetails(examName) {
+
+      alert(
+        examName +
+        '\n\nAbhi ye demo version hai. Next step mein hum har exam ka complete details page banayenge.'
+      );
+
+    }
+
+
+    function askAI() {
+
+      alert(
+        '🎙️ ExamSathi AI Voice Assistant\n\n' +
+        'AI Voice feature agle phase mein OpenAI/API aur voice technology se connect hoga.'
+      );
+
+    }
+
+
+    function demoQuestion(question) {
+
+      alert(
+        '🤖 ExamSathi AI\n\nAapne poochha:\n"' +
+        question +
+        '"\n\nAgle phase mein iska real AI answer yahin milega.'
+      );
+
+    }
+
+
+    function showPremium() {
+
+      document.getElementById('premium').scrollIntoView({
+        behavior: 'smooth'
+      });
+
+    }
+
+
+    function subscribe() {
+
+      alert(
+        '👑 ExamSathi AI Premium\n\n' +
+        'Payment aur login system agle development phase mein add hoga.'
+      );
+
+    }
+
+  </script>
+
 </body>
-  </html>
+</html>
