@@ -405,11 +405,10 @@
     type="text"
     id="searchInput"
     placeholder="SSC GD, Railway, Police ya koi exam search karein..."
-    onkeyup="searchUpdates()"
+    oninput="searchUpdates()"
   >
-
-  <button onclick="searchUpdates()">Search</button>
-</div>
+  <button type="button" onclick="searchUpdates()">Search</button>
+    </div>
 
     <div class="voice-area">
       <button class="voice-button" onclick="askAI()">
@@ -580,15 +579,15 @@
     .toLowerCase()
     .trim();
 
-  const cards = document.querySelectorAll(".job-card");
+  const cards = document.querySelectorAll("#jobGrid .job-card");
 
   let visibleCount = 0;
 
   cards.forEach((card) => {
-    const cardText = card.innerText.toLowerCase();
+    const cardText = card.textContent.toLowerCase();
 
-    if (cardText.includes(searchText)) {
-      card.style.display = "block";
+    if (searchText === "" || cardText.includes(searchText)) {
+      card.style.display = "";
       visibleCount++;
     } else {
       card.style.display = "none";
@@ -601,6 +600,7 @@
   document.getElementById("updateCount").innerText =
     visibleCount + (searchText ? " Results" : " Updates");
 }
+
 
 
 
