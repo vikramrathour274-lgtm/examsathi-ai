@@ -281,7 +281,9 @@
       const {
         data: { user }
       } = await supabaseClient.auth.getUser();
-
+      
+      console.log("Logged in user:", user);
+      
       if (user && user.email === ADMIN_EMAIL) {
         showAdmin(user);
       } else {
@@ -376,7 +378,15 @@
       message.textContent = "⏳ Update publish ho raha hai...";
 
       let error;
+const {
+  data: { session }
+} = await supabaseClient.auth.getSession();
 
+if (!session) {
+  message.className = "error";
+  message.textContent = "❌ Login session nahi mila. Logout karke dobara login karein.";
+  return;
+    }
 if (window.editingUpdateId) {
   const result = await supabaseClient
     .from("updates")
