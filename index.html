@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamSathi AI - Sarkari Naukri ka Smart Saathi</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: #1d4ed8;
+      color: white;
+      padding: 18px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #fbbf24;
+    }
+
+    .premium {
+      background: #fbbf24;
+      color: #111827;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 55px 20px 40px;
+      background: white;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 34px;
+      color: #1d4ed8;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #6b7280;
+      max-width: 650px;
+      margin: 15px auto;
+    }
+
+    .search-box {
+      display: flex;
+      max-width: 700px;
+      margin: 25px auto;
+      background: #f3f4f6;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+    }
+
+    .search-box input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 16px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .search-box button {
+      border: none;
+      background: #1d4ed8;
+      color: white;
+      padding: 0 22px;
+      font-size: 16px;
+    }
+
+    .voice-box {
+      margin: 25px auto;
+      max-width: 500px;
+      padding: 22px;
+      background: #eff6ff;
+      border-radius: 16px;
+    }
+
+    .voice-button {
+      border: none;
+      background: #1d4ed8;
+      color: white;
+      font-size: 18px;
+      padding: 16px 24px;
+      border-radius: 30px;
+    }
+
+    .voice-box p {
+      margin-bottom: 0;
+      color: #374151;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #1d4ed8;
+    }
+
+    .premium-section {
+      background: #1d4ed8;
+      color: white;
+      padding: 45px 20px;
+      text-align: center;
+    }
+
+    .premium-section h2 {
+      margin-top: 0;
+      font-size: 30px;
+    }
+
+    .price {
+      font-size: 38px;
+      font-weight: bold;
+      color: #fbbf24;
+    }
+
+    .premium-features {
+      list-style: none;
+      padding: 0;
+      max-width: 500px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .premium-features li {
+      padding: 8px;
+    }
+
+    .subscribe {
+      background: #fbbf24;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 8px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #111827;
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 15px;
+      }
+
+      .logo {
+        font-size: 20px;
+      }
+
+      .hero h1 {
+        font-size: 27px;
+      }
+
+      .search-box button {
+        padding: 0 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">Exam<span>Sathi</span> AI 🤖</div>
+    <div class="premium">⭐ Premium ₹101</div>
+  </header>
+
+  <section class="hero">
+    <h1>Sarkari Naukri ka Smart AI Saathi 🇮🇳</h1>
+    <p>Latest Vacancy, Admit Card, Result aur AI se apne exam ke baare mein poochho.</p>
+
+    <div class="search-box">
+      <input type="text" placeholder="Koi vacancy ya exam search karein...">
+      <button>Search</button>
+    </div>
+
+    <div class="voice-box">
+      <button class="voice-button">🎙️ ExamSathi AI se Bolo</button>
+      <p>"Aaj ki nayi vacancy batao" ya "Kya main SSC GD ke liye eligible hoon?"</p>
+    </div>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Latest Updates</h2>
+
+    <div class="grid">
+      <div class="card">
+        <h3>💼 Latest Jobs</h3>
+        <p>Nayi Sarkari Vacancies dekhein aur official notification paayein.</p>
+      </div>
+
+      <div class="card">
+        <h3>🎫 Admit Cards</h3>
+        <p>Apne exam ke latest admit card updates dekhein.</p>
+      </div>
+
+      <div class="card">
+        <h3>🏆 Results</h3>
+        <p>Sarkari exams ke latest results check karein.</p>
+      </div>
+
+      <div class="card">
+        <h3>📝 Answer Keys</h3>
+        <p>Exam answer keys aur important updates dekhein.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="premium-section">
+    <h2>👑 ExamSathi AI Premium</h2>
+    <div class="price">₹101 / 45 Days</div>
+
+    <ul class="premium-features">
+      <li>🎙️ AI Voice Assistant</li>
+      <li>🎯 Personal Eligibility Checker</li>
+      <li>📚 Previous Year Questions</li>
+      <li>📄 Exam-wise PDF Notes</li>
+      <li>🧠 Personalized Study Plan</li>
+      <li>🔔 Important Vacancy Alerts</li>
+    </ul>
+
+    <button class="subscribe">Premium Unlock Karein</button>
+  </section>
+
+  <footer>
+    © 2026 ExamSathi AI | Sarkari Naukri ka Smart Saathi
+  </footer>
+
+</body>
+  </html>
