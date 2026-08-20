@@ -460,14 +460,14 @@ async function loadAdminUpdates() {
 
     <br><br>
 <button
-  onclick="editUpdate(${update.id})"
+  onclick="togglePublish(${update.id}, ${update.is_published})"
   style="
     width: auto;
     margin: 0 8px 0 0;
     padding: 8px 14px;
   "
 >
-  ✏️ Edit
+  ${update.is_published ? "🙈 Hide" : "👁️ Publish"}
 </button>
 
   <button
