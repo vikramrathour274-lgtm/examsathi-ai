@@ -375,9 +375,23 @@
       message.className = "";
       message.textContent = "⏳ Update publish ho raha hai...";
 
-      const { error } = await supabaseClient
-        .from("updates")
-        .insert([updateData]);
+      let error;
+
+if (window.editingUpdateId) {
+  const result = await supabaseClient
+    .from("updates")
+    .update(updateData)
+    .eq("id", window.editingUpdateId);
+
+  error = result.error;
+
+} else {
+  const result = await supabaseClient
+    .from("updates")
+    .insert([updateData]);
+
+  error = result.error;
+}
 
       if (error) {
         console.error(error);
@@ -387,10 +401,16 @@
       }
 
       message.className = "success";
-      message.textContent =
-        "✅ Update successfully publish ho gaya!";
 
-      updateForm.reset();
+if (window.editingUpdateId) {
+  message.textContent = "✅ Update successfully save ho gaya!";
+  window.editingUpdateId = null;
+} else {
+  message.textContent = "✅ Update successfully publish ho gaya!";
+}
+
+form.reset();
+loadAdminUpdates();
     });
 async function loadAdminUpdates() {
   const updatesList = document.getElementById("updatesList");
