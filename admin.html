@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExamSathi AI Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+    }
+
+    header {
+      background: #123a8c;
+      color: white;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #123a8c;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #123a8c;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #message {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      display: none;
+    }
+
+    .success {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🤖 ExamSathi AI Admin Panel</h1>
+    <p>Naya Government Exam Update Add Karein</p>
+  </header>
+
+  <div class="container">
+    <div class="card">
+
+      <h2>➕ Add New Update</h2>
+
+      <form id="updateForm">
+
+        <label>Category</label>
+        <select id="category" required>
+          <option value="job">💼 Job</option>
+          <option value="admit">🎫 Admit Card</option>
+          <option value="result">🏆 Result</option>
+          <option value="answer">📝 Answer Key</option>
+        </select>
+
+        <label>Title</label>
+        <input id="title" required placeholder="Jaise: SSC GD Constable Recruitment 2026">
+
+        <label>Department / Organization</label>
+        <input id="department" placeholder="Jaise: Staff Selection Commission">
+
+        <label>Short Description</label>
+        <textarea id="short_description" placeholder="Short information likhein..."></textarea>
+
+        <label>Total Vacancies</label>
+        <input id="total_vacancies" placeholder="Jaise: 25000">
+
+        <label>Qualification</label>
+        <input id="qualification" placeholder="Jaise: 10th Pass">
+
+        <label>Age Limit</label>
+        <input id="age_info" placeholder="Jaise: 18-23 Years">
+
+        <label>Salary</label>
+        <input id="salary" placeholder="Jaise: ₹21,700 - ₹69,100">
+
+        <label>Application Start Date</label>
+        <input id="application_start_date" placeholder="DD/MM/YYYY">
+
+        <label>Application Last Date</label>
+        <input id="application_last_date" placeholder="DD/MM/YYYY">
+
+        <label>Exam Date</label>
+        <input id="exam_date" placeholder="To be announced">
+
+        <label>Application Fee</label>
+        <input id="application_fee" placeholder="Jaise: General ₹100">
+
+        <label>Selection Process</label>
+        <textarea id="selection_process" placeholder="Jaise: CBT → PET/PST → Medical"></textarea>
+
+        <label>Exam Pattern</label>
+        <textarea id="exam_pattern" placeholder="Exam pattern ki details..."></textarea>
+
+        <label>Complete Details</label>
+        <textarea id="full_details" placeholder="Complete information..."></textarea>
+
+        <label>Official Notification Link</label>
+        <input id="official_notification_url" placeholder="Official notification link">
+
+        <label>Apply Online Link</label>
+        <input id="apply_online_url" placeholder="Official apply link">
+
+        <button type="submit">🚀 Update Publish Karein</button>
+
+      </form>
+
+      <div id="message"></div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    const SUPABASE_URL = "https://hzskmosmpqwqurtrqbza.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_zOLpGIbaEVV2nJdi2dnnNA_mai6SsTJ";
+
+    const supabaseClient = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const form = document.getElementById("updateForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      const updateData = {
+        category: document.getElementById("category").value,
+        title: document.getElementById("title").value,
+        department: document.getElementById("department").value,
+        short_description: document.getElementById("short_description").value,
+        total_vacancies: document.getElementById("total_vacancies").value,
+        qualification: document.getElementById("qualification").value,
+        age_info: document.getElementById("age_info").value,
+        salary: document.getElementById("salary").value,
+        application_start_date: document.getElementById("application_start_date").value,
+        application_last_date: document.getElementById("application_last_date").value,
+        exam_date: document.getElementById("exam_date").value,
+        application_fee: document.getElementById("application_fee").value,
+        selection_process: document.getElementById("selection_process").value,
+        exam_pattern: document.getElementById("exam_pattern").value,
+        full_details: document.getElementById("full_details").value,
+        official_notification_url: document.getElementById("official_notification_url").value,
+        apply_online_url: document.getElementById("apply_online_url").value,
+        is_published: true
+      };
+
+      message.style.display = "block";
+      message.className = "";
+      message.textContent = "⏳ Update publish ho raha hai...";
+
+      const { error } = await supabaseClient
+        .from("updates")
+        .insert([updateData]);
+
+      if (error) {
+        console.error(error);
+        message.className = "error";
+        message.textContent = "❌ Error: " + error.message;
+        return;
+      }
+
+      message.className = "success";
+      message.textContent = "✅ Update successfully publish ho gaya!";
+
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
