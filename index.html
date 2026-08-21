@@ -663,8 +663,8 @@
   chatMessages.appendChild(message);
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
-
-async function askAI() {
+const chatHistory = [];
+async async function askAI() {
   const aiInput = document.getElementById("aiInput");
   const question = aiInput.value.trim();
 
@@ -673,7 +673,7 @@ async function askAI() {
   addChatMessage("👤 Aap", question);
   aiInput.value = "";
 
-  addChatMessage("🤖 ExamSathi AI", "Soch raha hoon...");
+  addChatMessage("🤖 ExamSathi AI", "Thinking...");
 
   try {
     const response = await fetch(
@@ -684,8 +684,9 @@ async function askAI() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-  question: question
-})
+          question: question,
+          history: chatHistory
+        })
       }
     );
 
@@ -706,10 +707,22 @@ async function askAI() {
       return;
     }
 
-    addChatMessage(
-      "🤖 ExamSathi AI",
-      result.answer || result.response || "AI se jawab nahi mila."
-    );
+    const answer =
+      result.answer ||
+      "AI se jawab nahi mila.";
+
+    chatHistory.push({
+      role: "user",
+      text: question
+    });
+
+    chatHistory.push({
+      role: "model",
+      text: answer
+    });
+
+    addChatMessage("🤖 ExamSathi AI", answer);
+
   } catch (error) {
     console.error(error);
 
@@ -722,7 +735,7 @@ async function askAI() {
 
     addChatMessage(
       "🤖 ExamSathi AI",
-      "Connection error. Thodi der baad dobara try karein."
+      "Connection error. Please try again."
     );
   }
 }
