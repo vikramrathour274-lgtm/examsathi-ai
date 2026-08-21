@@ -8,13 +8,9 @@
   <title>ExamSathi AI - Sarkari Naukri ka Smart Saathi</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -23,11 +19,7 @@
       color: #1f2937;
     }
 
-    button {
-      cursor: pointer;
-    }
-
-    /* HEADER */
+    button { cursor: pointer; }
 
     header {
       background: #123a8c;
@@ -46,9 +38,7 @@
       font-weight: bold;
     }
 
-    .logo span {
-      color: #fbbf24;
-    }
+    .logo span { color: #fbbf24; }
 
     .premium-top {
       background: #fbbf24;
@@ -59,8 +49,6 @@
       font-size: 14px;
       border: none;
     }
-
-    /* HERO */
 
     .hero {
       background: linear-gradient(135deg, #123a8c, #2563eb);
@@ -81,8 +69,6 @@
       color: #e5edff;
       line-height: 1.6;
     }
-
-    /* SEARCH */
 
     .search-box {
       max-width: 750px;
@@ -110,11 +96,7 @@
       font-size: 15px;
     }
 
-    /* VOICE */
-
-    .voice-area {
-      margin-top: 22px;
-    }
+    .voice-area { margin-top: 22px; }
 
     .voice-button {
       border: 2px solid white;
@@ -130,8 +112,6 @@
       font-size: 14px;
       margin-top: 10px;
     }
-
-    /* NAVIGATION */
 
     .nav-section {
       background: white;
@@ -158,8 +138,6 @@
       background: #123a8c;
       color: white;
     }
-
-    /* MAIN */
 
     .container {
       max-width: 1150px;
@@ -189,8 +167,6 @@
       font-weight: bold;
     }
 
-    /* CARDS */
-
     .job-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -204,6 +180,7 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.07);
       border: 1px solid #edf0f5;
       transition: 0.2s;
+      word-break: break-word;
     }
 
     .job-card:hover {
@@ -252,7 +229,40 @@
       font-size: 14px;
     }
 
-    /* AI SECTION */
+    .secondary-btn {
+      background: #2563eb;
+    }
+
+    .back-btn {
+      max-width: 200px;
+    }
+
+    .loading,
+    .empty-message {
+      grid-column: 1 / -1;
+      background: white;
+      padding: 35px 20px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .filters select {
+      padding: 11px 13px;
+      border: 1px solid #dbe2f0;
+      border-radius: 9px;
+      background: white;
+      color: #1f2937;
+      font-size: 14px;
+      outline: none;
+    }
 
     .ai-section {
       background: white;
@@ -267,6 +277,50 @@
     .ai-section h2 {
       color: #123a8c;
       margin-top: 0;
+    }
+
+    .chat-messages {
+      max-width: 700px;
+      margin: 20px auto;
+      min-height: 180px;
+      max-height: 350px;
+      overflow-y: auto;
+      text-align: left;
+      padding: 15px;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #f8fafc;
+    }
+
+    .chat-message {
+      margin: 0 0 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .chat-input-area {
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      gap: 10px;
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    .chat-input-area button {
+      width: auto;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #123a8c;
+      color: white;
+      font-weight: bold;
     }
 
     .ai-questions {
@@ -284,8 +338,6 @@
       border-radius: 20px;
       font-size: 14px;
     }
-
-    /* PREMIUM */
 
     .premium-section {
       background: linear-gradient(135deg, #111827, #123a8c);
@@ -331,8 +383,6 @@
       font-weight: bold;
     }
 
-    /* FOOTER */
-
     footer {
       background: #0b1220;
       color: #cbd5e1;
@@ -340,45 +390,37 @@
       padding: 25px 15px;
     }
 
-    footer strong {
-      color: white;
-    }
-
-    /* MOBILE */
+    footer strong { color: white; }
 
     @media (max-width: 600px) {
-      header {
-        padding: 13px 15px;
-      }
+      header { padding: 13px 15px; }
 
-      .logo {
-        font-size: 19px;
-      }
+      .logo { font-size: 19px; }
 
       .premium-top {
         font-size: 12px;
         padding: 8px 10px;
       }
 
-      .hero {
-        padding: 45px 15px 40px;
-      }
+      .hero { padding: 45px 15px 40px; }
 
-      .hero h1 {
-        font-size: 29px;
-      }
+      .hero h1 { font-size: 29px; }
 
-      .search-box input {
-        padding: 15px 10px;
-      }
+      .search-box input { padding: 15px 10px; }
 
-      .search-box button {
-        padding: 0 14px;
-      }
+      .search-box button { padding: 0 14px; }
 
       .section-heading {
         align-items: flex-start;
         flex-direction: column;
+      }
+
+      .chat-input-area {
+        flex-direction: column;
+      }
+
+      .chat-input-area button {
+        width: 100%;
       }
     }
   </style>
@@ -388,9 +430,10 @@
 
   <header>
     <div class="logo">Exam<span>Sathi</span> AI 🤖</div>
-    <button class="premium-top" onclick="showPremium()">⭐ Premium ₹101</button>
+    <button class="premium-top" onclick="showPremium()">
+      ⭐ Premium ₹101
+    </button>
   </header>
-
 
   <section class="hero">
     <h1>Sarkari Naukri ka Smart AI Saathi 🇮🇳</h1>
@@ -401,17 +444,19 @@
     </p>
 
     <div class="search-box">
-  <input
-    type="text"
-    id="searchInput"
-    placeholder="SSC GD, Railway, Police ya koi exam search karein..."
-    oninput="searchUpdates()"
-  >
-  <button type="button" onclick="searchUpdates()">Search</button>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="SSC GD, Railway, Police ya koi exam search karein..."
+        oninput="debouncedSearch()"
+      >
+      <button type="button" onclick="searchUpdates()">
+        Search
+      </button>
     </div>
 
     <div class="voice-area">
-      <button class="voice-button" onclick="askAI()">
+      <button class="voice-button" onclick="startVoiceInput()">
         🎙️ ExamSathi AI se Bolo
       </button>
 
@@ -422,7 +467,6 @@
     </div>
   </section>
 
-
   <section class="nav-section">
     <button class="category-btn active" onclick="filterJobs('all', this)">
       🔥 All Updates
@@ -432,7 +476,7 @@
       💼 Latest Jobs
     </button>
 
-    <button class="category-btn" onclick="filterJobs('admit', this)">
+    <button class="category-btn" onclick="filterJobs('admit_card', this)">
       🎫 Admit Cards
     </button>
 
@@ -440,105 +484,95 @@
       🏆 Results
     </button>
 
-    <button class="category-btn" onclick="filterJobs('answer', this)">
+    <button class="category-btn" onclick="filterJobs('answer_key', this)">
       📝 Answer Keys
     </button>
   </section>
-
 
   <main class="container">
 
     <div class="section-heading">
       <h2 id="sectionTitle">Latest Updates</h2>
-      <div class="update-count" id="updateCount">6 Updates</div>
+      <div class="update-count" id="updateCount">Loading...</div>
     </div>
-    
+
+    <div class="filters">
+      <select id="stateFilter" onchange="loadUpdates()">
+        <option value="">🌐 All India & All States</option>
+        <option value="All India">All India</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="West Bengal">West Bengal</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+        <option value="Karnataka">Karnataka</option>
+      </select>
+
+      <select id="examFilter" onchange="loadUpdates()">
+        <option value="">🎯 All Exams</option>
+      </select>
+    </div>
 
     <div class="job-grid" id="jobGrid">
-</div>
+      <div class="loading">Latest updates load ho rahe hain...</div>
+    </div>
 
   </main>
+
   <section class="ai-section">
-  <h2>🤖 ExamSathi AI se Poochho</h2>
 
-  <p>
-    Government jobs aur exam preparation ke baare mein apna sawaal poochho.
-  </p>
+    <h2>🤖 ExamSathi AI se Poochho</h2>
 
-  <div id="chatMessages" style="
-    max-width: 700px;
-    margin: 20px auto;
-    min-height: 180px;
-    max-height: 350px;
-    overflow-y: auto;
-    text-align: left;
-    padding: 15px;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    background: #f8fafc;
-  ">
-    <p><strong>🤖 ExamSathi AI:</strong> Namaste! Apne exam ke baare mein kuch bhi poochho.</p>
-  </div>
+    <p>
+      Government jobs aur exam preparation ke baare mein apna sawaal poochho.
+    </p>
 
-  <div style="
-    max-width: 700px;
-    margin: auto;
-    display: flex;
-    gap: 10px;
-  ">
-    <input
-      type="text"
-      id="aiInput"
-      placeholder="Apna sawaal likhein..."
-      style="
-        flex: 1;
-        padding: 14px;
-        border: 1px solid #cbd5e1;
-        border-radius: 10px;
-        font-size: 15px;
-      "
-      onkeydown="if(event.key === 'Enter') askAI()"
-    >
+    <div id="chatMessages" class="chat-messages">
+      <p class="chat-message">
+        <strong>🤖 ExamSathi AI:</strong>
+        Namaste! Apne exam ke baare mein kuch bhi poochho.
+      </p>
+    </div>
 
-    <button
-      onclick="askAI()"
-      style="
-        width: auto;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 10px;
-        background: #123a8c;
-        color: white;
-        font-weight: bold;
-      "
-    >
-      Send ➤
-    </button>
-  </div>
+    <div class="chat-input-area">
+      <input
+        type="text"
+        id="aiInput"
+        placeholder="Apna sawaal likhein..."
+        onkeydown="if(event.key === 'Enter') askAI()"
+      >
 
-  <div class="ai-questions">
-    <button class="ai-question" onclick="demoQuestion('Aaj ki nayi vacancy batao')">
-      🎙️ Aaj ki nayi vacancy batao
-    </button>
+      <button onclick="askAI()">
+        Send ➤
+      </button>
+    </div>
 
-    <button class="ai-question" onclick="demoQuestion('SSC GD ki qualification kya hai?')">
-      🎓 SSC GD ki qualification?
-    </button>
+    <div class="ai-questions">
+      <button class="ai-question" onclick="demoQuestion('Aaj ki nayi vacancy batao')">
+        🎙️ Aaj ki nayi vacancy batao
+      </button>
 
-    <button class="ai-question" onclick="demoQuestion('Kya main is vacancy ke liye eligible hoon?')">
-      🎯 Kya main eligible hoon?
-    </button>
+      <button class="ai-question" onclick="demoQuestion('SSC GD ki qualification kya hai?')">
+        🎓 SSC GD ki qualification?
+      </button>
 
-    <button class="ai-question" onclick="demoQuestion('Previous year questions do')">
-      📚 Previous Year Questions
-    </button>
+      <button class="ai-question" onclick="demoQuestion('Kya main is vacancy ke liye eligible hoon?')">
+        🎯 Kya main eligible hoon?
+      </button>
 
-    <button class="ai-question" onclick="demoQuestion('Exam notes chahiye')">
-      📄 Exam Notes chahiye
-    </button>
-  </div>
-</section>
+      <button class="ai-question" onclick="demoQuestion('Previous year questions do')">
+        📚 Previous Year Questions
+      </button>
 
+      <button class="ai-question" onclick="demoQuestion('Exam notes chahiye')">
+        📄 Exam Notes chahiye
+      </button>
+    </div>
+
+  </section>
 
   <section class="premium-section" id="premium">
 
@@ -550,23 +584,14 @@
       Government Exam Updates ke saath apna personal AI Exam Assistant paayein.
     </p>
 
-
     <div class="premium-box">
-
       <div class="premium-item">🎙️ AI Voice Assistant</div>
-
       <div class="premium-item">🎯 Personal Eligibility Checker</div>
-
       <div class="premium-item">📚 Previous Year Questions</div>
-
       <div class="premium-item">📄 Exam-wise PDF Notes</div>
-
       <div class="premium-item">🧠 Personalized Study Plan</div>
-
       <div class="premium-item">🔔 Important Vacancy Alerts</div>
-
     </div>
-
 
     <button class="subscribe-btn" onclick="subscribe()">
       Premium Unlock Karein
@@ -574,328 +599,547 @@
 
   </section>
 
-
   <footer>
     <strong>ExamSathi AI 🤖</strong><br>
     Sarkari Naukri aur Exam Preparation ka Smart Saathi<br><br>
     © 2026 ExamSathi AI
   </footer>
 
-
   <script>
+    const API_BASE =
+      "https://examsathi-ai-api.vikramrathour274.workers.dev";
 
-    function filterJobs(category, button) {
+    let currentCategory = "all";
+    let allLoadedUpdates = [];
+    let searchTimer = null;
+    const chatHistory = [];
 
-      const cards = document.querySelectorAll('.job-card');
-      const buttons = document.querySelectorAll('.category-btn');
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
 
-      buttons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      let visibleCount = 0;
-
-      cards.forEach(card => {
-
-        if (category === 'all' || card.dataset.category === category) {
-          card.style.display = 'block';
-          visibleCount++;
-        } else {
-          card.style.display = 'none';
-        }
-
-      });
-
-      document.getElementById('updateCount').innerText =
-        visibleCount + ' Updates';
-
-      const titles = {
-        all: 'Latest Updates',
-        job: 'Latest Government Jobs',
-        admit: 'Latest Admit Cards',
-        result: 'Latest Results',
-        answer: 'Latest Answer Keys'
+    function getTypeLabel(type) {
+      const labels = {
+        job: "💼 Latest Job",
+        admit_card: "🎫 Admit Card",
+        result: "🏆 Result",
+        answer_key: "📝 Answer Key"
       };
 
-      document.getElementById('sectionTitle').innerText =
-        titles[category];
-
+      return labels[type] || "📢 Update";
     }
 
+    function getSectionTitle(category) {
+      const titles = {
+        all: "Latest Updates",
+        job: "Latest Government Jobs",
+        admit_card: "Latest Admit Cards",
+        result: "Latest Results",
+        answer_key: "Latest Answer Keys"
+      };
 
-     function searchUpdates() {
-  const searchText = document
-    .getElementById("searchInput")
-    .value
-    .toLowerCase()
-    .trim();
-
-  const cards = document.querySelectorAll("#jobGrid .job-card");
-
-  let visibleCount = 0;
-
-  cards.forEach((card) => {
-    const cardText = card.textContent.toLowerCase();
-
-    if (searchText === "" || cardText.includes(searchText)) {
-      card.style.display = "";
-      visibleCount++;
-    } else {
-      card.style.display = "none";
+      return titles[category] || "Latest Updates";
     }
-  });
 
-  document.getElementById("sectionTitle").innerText =
-    searchText ? "Search Results" : "Latest Updates";
+    function updateExamFilter(updates) {
+      const examFilter = document.getElementById("examFilter");
+      const currentValue = examFilter.value;
 
-  document.getElementById("updateCount").innerText =
-    visibleCount + (searchText ? " Results" : " Updates");
-}
+      const exams = [
+        ...new Set(
+          updates
+            .map(item => item.exam_name)
+            .filter(Boolean)
+        )
+      ].sort();
 
+      examFilter.innerHTML =
+        '<option value="">🎯 All Exams</option>' +
+        exams.map(exam =>
+          `<option value="${escapeHtml(exam)}">${escapeHtml(exam)}</option>`
+        ).join("");
 
+      if (exams.includes(currentValue)) {
+        examFilter.value = currentValue;
+      }
+    }
 
+    async function loadUpdates() {
+      const jobGrid = document.getElementById("jobGrid");
+      const state = document.getElementById("stateFilter").value;
+      const exam = document.getElementById("examFilter").value;
+
+      jobGrid.innerHTML =
+        '<div class="loading">Latest updates load ho rahe hain...</div>';
+
+      try {
+        const params = new URLSearchParams();
+
+        if (currentCategory !== "all") {
+          params.set("type", currentCategory);
+        }
+
+        if (state) {
+          params.set("state", state);
+        }
+
+        if (exam) {
+          params.set("exam", exam);
+        }
+
+        const search =
+          document.getElementById("searchInput").value.trim();
+
+        if (search) {
+          params.set("search", search);
+        }
+
+        const url =
+          API_BASE + "/updates" +
+          (params.toString() ? "?" + params.toString() : "");
+
+        const response = await fetch(url);
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+          throw new Error(
+            result.error || "Updates load nahi ho paaye."
+          );
+        }
+
+        allLoadedUpdates = result.updates || [];
+
+        if (!exam) {
+          updateExamFilter(allLoadedUpdates);
+        }
+
+        renderUpdates(allLoadedUpdates);
+
+      } catch (error) {
+        console.error("Updates error:", error);
+
+        jobGrid.innerHTML = `
+          <div class="empty-message">
+            <strong>Updates load nahi ho paaye.</strong><br><br>
+            ${escapeHtml(error.message || "Please try again.")}
+          </div>
+        `;
+
+        document.getElementById("updateCount").innerText =
+          "0 Updates";
+      }
+    }
+
+    function renderUpdates(updates) {
+      const jobGrid = document.getElementById("jobGrid");
+      const search =
+        document.getElementById("searchInput").value.trim();
+
+      document.getElementById("sectionTitle").innerText =
+        search
+          ? "Search Results"
+          : getSectionTitle(currentCategory);
+
+      document.getElementById("updateCount").innerText =
+        updates.length +
+        (search ? " Results" : " Updates");
+
+      if (!updates.length) {
+        jobGrid.innerHTML = `
+          <div class="empty-message">
+            <strong>Abhi koi matching update available nahi hai.</strong>
+          </div>
+        `;
+        return;
+      }
+
+      jobGrid.innerHTML = updates.map(update => `
+        <div class="job-card">
+          <span class="job-type">
+            ${escapeHtml(getTypeLabel(update.update_type))}
+          </span>
+
+          <h3>${escapeHtml(update.title)}</h3>
+
+          <p>
+            ${escapeHtml(
+              update.short_description ||
+              "Official update ke details dekhein."
+            )}
+          </p>
+
+          <div class="job-info">
+            🏛️ Department:
+            ${escapeHtml(update.department || "Official Source")}<br>
+
+            🎯 Exam:
+            ${escapeHtml(update.exam_name || "Not specified")}<br>
+
+            🌐 State:
+            ${escapeHtml(update.state || "All India")}<br>
+
+            🎓 Qualification:
+            ${escapeHtml(
+              update.qualification || "Official notification dekhein"
+            )}
+          </div>
+
+          <button
+            class="details-btn"
+            onclick="showUpdateDetails(${Number(update.id)})"
+          >
+            View Details
+          </button>
+        </div>
+      `).join("");
+    }
+
+    function filterJobs(category, button) {
+      currentCategory = category;
+
+      document
+        .querySelectorAll(".category-btn")
+        .forEach(btn => btn.classList.remove("active"));
+
+      button.classList.add("active");
+
+      document.getElementById("examFilter").value = "";
+
+      loadUpdates();
+    }
+
+    function debouncedSearch() {
+      clearTimeout(searchTimer);
+
+      searchTimer = setTimeout(() => {
+        loadUpdates();
+      }, 400);
+    }
+
+    function searchUpdates() {
+      clearTimeout(searchTimer);
+      loadUpdates();
+    }
+
+    async function showUpdateDetails(id) {
+      const update =
+        allLoadedUpdates.find(item => Number(item.id) === Number(id));
+
+      if (!update) {
+        document.getElementById("jobGrid").innerHTML = `
+          <div class="empty-message">
+            Details available nahi hain. Please list dobara load karein.
+          </div>
+        `;
+        return;
+      }
+
+      document.getElementById("sectionTitle").innerText =
+        update.title || "Update Details";
+
+      document.getElementById("updateCount").innerText =
+        "Update Details";
+
+      document.getElementById("jobGrid").innerHTML = `
+        <div class="job-card details-card">
+
+          <span class="job-type">
+            ${escapeHtml(getTypeLabel(update.update_type))}
+          </span>
+
+          <h2>${escapeHtml(update.title)}</h2>
+
+          <p>${escapeHtml(update.short_description)}</p>
+
+          <div class="job-info">
+
+            🏛️ <strong>Department:</strong>
+            ${escapeHtml(update.department || "Not available")}<br><br>
+
+            🎯 <strong>Exam:</strong>
+            ${escapeHtml(update.exam_name || "Not available")}<br><br>
+
+            🌐 <strong>State:</strong>
+            ${escapeHtml(update.state || "All India")}<br><br>
+
+            🔢 <strong>Total Vacancies:</strong>
+            ${escapeHtml(update.total_vacancies || "Notification dekhein")}<br><br>
+
+            🎓 <strong>Qualification:</strong>
+            ${escapeHtml(update.qualification || "Notification dekhein")}<br><br>
+
+            👤 <strong>Age Limit:</strong>
+            ${escapeHtml(update.age_info || "Notification dekhein")}<br><br>
+
+            💰 <strong>Salary:</strong>
+            ${escapeHtml(update.salary || "Notification dekhein")}<br><br>
+
+            📅 <strong>Important Date:</strong>
+            ${escapeHtml(update.important_date || "Notification dekhein")}<br><br>
+
+            📅 <strong>Application Start:</strong>
+            ${escapeHtml(update.application_start_date || "Notification dekhein")}<br><br>
+
+            ⏰ <strong>Last Date:</strong>
+            ${escapeHtml(update.application_last_date || "Notification dekhein")}<br><br>
+
+            📝 <strong>Exam Date:</strong>
+            ${escapeHtml(update.exam_date || "To be announced")}<br><br>
+
+            📌 <strong>Verified Source:</strong>
+            ${escapeHtml(update.source_name || "Official source")}
+            ${update.verified_at
+              ? "<br>Verified: " +
+                escapeHtml(
+                  new Date(update.verified_at).toLocaleString("en-IN")
+                )
+              : ""
+            }
+
+          </div>
+
+          ${update.official_notification_url ? `
+            <a
+              href="${escapeHtml(update.official_notification_url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button class="details-btn">
+                📄 Official Notification
+              </button>
+            </a>
+          ` : ""}
+
+          ${update.apply_online_url ? `
+            <a
+              href="${escapeHtml(update.apply_online_url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button class="details-btn secondary-btn">
+                🚀 Apply Online
+              </button>
+            </a>
+          ` : ""}
+
+          <button
+            class="details-btn back-btn"
+            onclick="loadUpdates()"
+          >
+            ← All Updates
+          </button>
+
+        </div>
+      `;
+    }
 
     function addChatMessage(sender, text) {
-  const chatMessages = document.getElementById("chatMessages");
+      const chatMessages =
+        document.getElementById("chatMessages");
 
-  const message = document.createElement("p");
-  message.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      const message = document.createElement("p");
 
-  chatMessages.appendChild(message);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-const chatHistory = [];
-async function askAI() {
-  const aiInput = document.getElementById("aiInput");
-  const question = aiInput.value.trim();
+      message.className = "chat-message";
 
-  if (!question) return;
+      const senderStrong = document.createElement("strong");
+      senderStrong.textContent = sender + ": ";
 
-  addChatMessage("👤 Aap", question);
-  aiInput.value = "";
+      const content = document.createTextNode(text);
 
-  addChatMessage("🤖 ExamSathi AI", "Thinking...");
+      message.appendChild(senderStrong);
+      message.appendChild(content);
 
-  try {
-    const response = await fetch(
-      "https://examsathi-ai-api.vikramrathour274.workers.dev",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          question: question,
-          history: chatHistory
-        })
+      chatMessages.appendChild(message);
+
+      chatMessages.scrollTop =
+        chatMessages.scrollHeight;
+
+      return message;
+    }
+
+    async function askAI() {
+      const aiInput = document.getElementById("aiInput");
+      const question = aiInput.value.trim();
+
+      if (!question) return;
+
+      addChatMessage("👤 Aap", question);
+
+      aiInput.value = "";
+
+      const thinkingMessage =
+        addChatMessage(
+          "🤖 ExamSathi AI",
+          "Soch raha hoon..."
+        );
+
+      try {
+        const response = await fetch(
+          API_BASE,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              question,
+              history: chatHistory.slice(-10)
+            })
+          }
+        );
+
+        const result = await response.json();
+
+        thinkingMessage.remove();
+
+        if (!response.ok) {
+          throw new Error(
+            result.error || "AI se response nahi mila."
+          );
+        }
+
+        const answer =
+          result.answer ||
+          "AI se jawab nahi mila.";
+
+        chatHistory.push({
+          role: "user",
+          text: question
+        });
+
+        chatHistory.push({
+          role: "model",
+          text: answer
+        });
+
+        if (chatHistory.length > 20) {
+          chatHistory.splice(
+            0,
+            chatHistory.length - 20
+          );
+        }
+
+        addChatMessage(
+          "🤖 ExamSathi AI",
+          answer
+        );
+
+      } catch (error) {
+        console.error("AI error:", error);
+
+        thinkingMessage.remove();
+
+        addChatMessage(
+          "🤖 ExamSathi AI",
+          "Error: " +
+          (error.message ||
+            "Connection error. Please try again.")
+        );
       }
-    );
-
-    const result = await response.json();
-
-    const chatMessages = document.getElementById("chatMessages");
-    const messages = chatMessages.querySelectorAll("p");
-
-    if (messages.length > 0) {
-      messages[messages.length - 1].remove();
     }
 
-    if (!response.ok) {
-      addChatMessage(
-        "🤖 ExamSathi AI",
-        "Error: " + (result.error || "AI se response nahi mila.")
-      );
-      return;
+    function demoQuestion(question) {
+      document.getElementById("aiInput").value =
+        question;
+
+      askAI();
     }
 
-    const answer =
-      result.answer ||
-      "AI se jawab nahi mila.";
+    function startVoiceInput() {
+      const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
 
-    chatHistory.push({
-      role: "user",
-      text: question
-    });
+      if (!SpeechRecognition) {
+        alert(
+          "Aapke browser me voice recognition support nahi hai."
+        );
+        return;
+      }
 
-    chatHistory.push({
-      role: "model",
-      text: answer
-    });
+      const recognition =
+        new SpeechRecognition();
 
-    addChatMessage("🤖 ExamSathi AI", answer);
+      recognition.lang = "hi-IN";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
 
-  } catch (error) {
-    console.error(error);
+      const voiceButton =
+        document.querySelector(".voice-button");
 
-    const chatMessages = document.getElementById("chatMessages");
-    const messages = chatMessages.querySelectorAll("p");
+      voiceButton.textContent = "🎙️ Sun raha hoon...";
 
-    if (messages.length > 0) {
-      messages[messages.length - 1].remove();
+      recognition.start();
+
+      recognition.onresult = event => {
+        const text =
+          event.results[0][0].transcript;
+
+        document.getElementById("aiInput").value =
+          text;
+
+        askAI();
+      };
+
+      recognition.onerror = () => {
+        alert(
+          "Voice input me problem aayi. Dobara try karein."
+        );
+      };
+
+      recognition.onend = () => {
+        voiceButton.textContent =
+          "🎙️ ExamSathi AI se Bolo";
+      };
     }
-
-    addChatMessage(
-      "🤖 ExamSathi AI",
-      "Connection error. Please try again."
-    );
-  }
-}
-
-function demoQuestion(question) {
-  document.getElementById("aiInput").value = question;
-  askAI();
-    }
-
 
     function showPremium() {
-
-      document.getElementById('premium').scrollIntoView({
-        behavior: 'smooth'
-      });
-
+      document
+        .getElementById("premium")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
     }
-
 
     function subscribe() {
-
       alert(
-        '👑 ExamSathi AI Premium\n\n' +
-        'Payment aur login system agle development phase mein add hoga.'
+        "👑 ExamSathi AI Premium\n\n" +
+        "Premium login aur payment system next development phase me activate hoga."
       );
-
     }
 
+    loadUpdates();
   </script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-  const SUPABASE_URL = "https://hzskmosmpqwqurtrqbza.supabase.co";
 
-  const SUPABASE_KEY = "sb_publishable_zOLpGIbaEVV2nJdi2dnnNA_mai6SsTJ";
-
-  const supabaseClient = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
- async function loadUpdates() {
-  const jobGrid = document.getElementById("jobGrid");
-
-  const { data, error } = await supabaseClient
-    .from("updates")
-    .select("*")
-    .eq("is_published", true)
-    .order("id", { ascending: false });
-
-  if (error) {
-  console.error("Updates load error:", error);
-  jobGrid.innerHTML = "<p>Supabase Error: " + error.message + "</p>";
-  return;
-}
-
-  
-  if (!data || data.length === 0) {
-    jobGrid.innerHTML = "<p>Abhi koi latest update available nahi hai.</p>";
-    return;
-  }
-
-  jobGrid.innerHTML = data.map((update) => `
-    <div class="job-card" data-category="${update.category || ''}">
-      <span class="job-type">${update.category || '📢 Update'}</span>
-      <h3>${update.title || ''}</h3>
-      <p>${update.short_description || ''}</p>
-      <div class="job-info">
-        🏛️ Department: ${update.department || 'Official Source'}<br>
-        🎓 Qualification: ${update.qualification || 'Notification dekhein'}<br>
-        📅 Important Date: ${update.important_date || 'Official notification dekhein'}
-      </div>
-      <button class="details-btn" onclick="showUpdateDetails(${update.id})">
-  View Details
-</button>
-    </div>
-  `).join("");
-   
-   document.getElementById("updateCount").innerText =
-  data.length + " Updates";
-  }
-async function showUpdateDetails(id) {
-  const { data, error } = await supabaseClient
-    .from("updates")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error || !data) {
-    alert("Details load nahi ho paayi.");
-    return;
-  }
-
-  document.getElementById("sectionTitle").innerText =
-    data.title || "Exam Details";
-
-  document.getElementById("updateCount").innerText =
-    "Exam Details";
-
-  document.getElementById("jobGrid").innerHTML = `
-    <div class="job-card details-card">
-      <span class="job-type">${data.category || "Update"}</span>
-
-      <h2>${data.title || ""}</h2>
-
-      <p>${data.short_description || ""}</p>
-
-      <div class="job-info">
-        🏛️ <strong>Department:</strong> ${data.department || "Not available"}<br><br>
-
-        🔢 <strong>Total Vacancies:</strong> ${data.total_vacancies || "Notification dekhein"}<br><br>
-
-        🎓 <strong>Qualification:</strong> ${data.qualification || "Notification dekhein"}<br><br>
-
-        👤 <strong>Age Limit:</strong> ${data.age_info || "Notification dekhein"}<br><br>
-
-        💰 <strong>Salary:</strong> ${data.salary || "Notification dekhein"}<br><br>
-
-        📅 <strong>Application Start:</strong> ${data.application_start_date || "Notification dekhein"}<br><br>
-
-        ⏰ <strong>Last Date:</strong> ${data.application_last_date || "Notification dekhein"}<br><br>
-
-        📝 <strong>Exam Date:</strong> ${data.exam_date || "To be announced"}<br><br>
-
-        💳 <strong>Application Fee:</strong> ${data.application_fee || "Notification dekhein"}<br><br>
-
-        🎯 <strong>Selection Process:</strong><br>
-        ${data.selection_process || "Notification dekhein"}<br><br>
-
-        📚 <strong>Exam Pattern:</strong><br>
-        ${data.exam_pattern || "Notification dekhein"}<br><br>
-
-        📋 <strong>Complete Details:</strong><br>
-        ${data.full_details || "Official notification dekhein"}
-      </div>
-
-      <br>
-${data.official_notification_url ? `
-  <a href="${data.official_notification_url}" target="_blank">
-    <button class="details-btn">
-      📄 Official Notification
-    </button>
-  </a>
-` : ""}
-
-${data.apply_online_url ? `
-  <a href="${data.apply_online_url}" target="_blank">
-    <button class="details-btn">
-      🚀 Apply Online
-    </button>
-  </a>
-` : ""}
-      <button class="details-btn" onclick="loadUpdates()">
-        ← All Updates par Wapas
-      </button>
-    </div>
-  `;
-}   
-    
-  loadUpdates();
-  </script>
 </body>
 </html>
 
+Ab kya karna hai
+
+1. Apni current "index.html" ka poora code delete karo.
+2. Upar wala poora code paste karo.
+3. Save/Commit karo.
+4. Website kholo.
+
+Is version me ab:
+
+- Worker API se All-India updates load honge
+- Jobs filter
+- Admit Cards filter
+- Results filter
+- Answer Keys filter
+- Search
+- State filter
+- Exam filter
+- Details page
+- Official notification button
+- Apply Online button
+- AI chat
+- Voice input
+
+sab ek hi frontend me connected hain.
