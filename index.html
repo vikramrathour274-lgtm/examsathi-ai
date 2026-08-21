@@ -664,24 +664,67 @@
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function askAI() {
+async function askAI() {
   const aiInput = document.getElementById("aiInput");
   const question = aiInput.value.trim();
 
-  if (!question) {
-    return;
-  }
+  if (!question) return;
 
   addChatMessage("👤 Aap", question);
-
   aiInput.value = "";
 
-  setTimeout(() => {
+  addChatMessage("🤖 ExamSathi AI", "Soch raha hoon...");
+
+  try {
+    const response = await fetch(
+      "https://examsathi-ai-api.vikramrathour274.workers.dev",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          message: question
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    const chatMessages = document.getElementById("chatMessages");
+    const messages = chatMessages.querySelectorAll("p");
+
+    if (messages.length > 0) {
+      messages[messages.length - 1].remove();
+    }
+
+    if (!response.ok) {
+      addChatMessage(
+        "🤖 ExamSathi AI",
+        "Error: " + (result.error || "AI se response nahi mila.")
+      );
+      return;
+    }
+
     addChatMessage(
       "🤖 ExamSathi AI",
-      "Main abhi AI system se connect ho raha hoon. Agle step mein main aapke sawaal ka asli jawab dunga."
+      result.answer || result.response || "AI se jawab nahi mila."
     );
-  }, 500);
+  } catch (error) {
+    console.error(error);
+
+    const chatMessages = document.getElementById("chatMessages");
+    const messages = chatMessages.querySelectorAll("p");
+
+    if (messages.length > 0) {
+      messages[messages.length - 1].remove();
+    }
+
+    addChatMessage(
+      "🤖 ExamSathi AI",
+      "Connection error. Thodi der baad dobara try karein."
+    );
+  }
 }
 
 function demoQuestion(question) {
