@@ -435,7 +435,7 @@
   const SUPABASE_ANON_KEY =
     "YAHAN_TUMHARI_SUPABASE_PUBLISHABLE_KEY";
 
-  const supabase =
+  const supabaseClient =
     window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
@@ -1126,8 +1126,8 @@
     async function subscribe() {
   try {
     // Check Supabase login session
-    const { data: { session }, error: sessionError } =
-      await supabase.auth.getSession();
+    const { data: { session }, error } =
+  await supabaseClient.auth.getSession();
 
     if (sessionError || !session) {
       alert(
