@@ -424,6 +424,8 @@
       }
     }
   </style>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
 
 <body>
@@ -1106,12 +1108,136 @@
         });
     }
 
-    function subscribe() {
+    async function subscribe() {
+  try {
+    // Check Supabase login session
+    const { data: { session }, error: sessionError } =
+      await supabase.auth.getSession();
+
+    if (sessionError || !session) {
       alert(
-        "👑 ExamSathi AI Premium\n\n" +
-        "Premium login aur payment system next development phase me activate hoga."
+        "🔐 Premium purchase karne ke liye pehle login karein."
+      );
+      return;
+    }
+
+    const subscribeButton =
+      document.querySelector(".subscribe-btn");
+
+    if (subscribeButton) {
+      subscribeButton.disabled = true;
+      subscribeButton.textContent = "⏳ Payment prepare ho raha hai...";
+    }
+
+    // Create Razorpay order through secure Supabase Edge Function
+    const response = await fetch(
+      "https://hzskmosmpqwqurtrqbza.supabase.co/functions/v1/razorpay-payment",
+      {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${session.access_token}`,
+          "apikey": SUPABASE_ANON_KEY,
+          "Content-Type": "application/json"
+        }
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(
+        result.error || "Payment order create nahi ho saka."
       );
     }
+
+    // Open Razorpay Checkout
+    const options = {
+      key: result.key_id,
+      amount: result.amount,
+      currency: result.currency,
+      name: "ExamSathi AI",
+      description: "ExamSathi AI Premium - 45 Days",
+      order_id: result.order_id,
+
+      prefill: {
+        email: session.user.email || ""
+      },
+
+      notes: {
+        product: "ExamSathi AI Premium",
+        duration: "45 Days"
+      },
+
+      theme: {
+        color: "#123a8c"
+      },
+
+      handler: function (paymentResponse) {
+        alert(
+          "✅ Payment successful!\n\n" +
+          "Payment ID: " +
+          paymentResponse.razorpay_payment_id +
+          "\n\n" +
+          "Premium activation thodi der mein verify hogi."
+        );
+
+        // Webhook Razorpay payment ko verify karke
+        // database mein premium access activate karega.
+      },
+
+      modal: {
+        ondismiss: function () {
+          if (subscribeButton) {
+            subscribeButton.disabled = false;
+            subscribeButton.textContent =
+              "Premium Unlock Karein";
+          }
+        }
+      }
+    };
+
+    const razorpay = new Razorpay(options);
+
+    razorpay.on("payment.failed", function (response) {
+      console.error(
+        "Razorpay payment failed:",
+        response.error
+      );
+
+      alert(
+        "❌ Payment failed.\n\n" +
+        (response.error?.description ||
+          "Please dobara try karein.")
+      );
+
+      if (subscribeButton) {
+        subscribeButton.disabled = false;
+        subscribeButton.textContent =
+          "Premium Unlock Karein";
+      }
+    });
+
+    razorpay.open();
+
+  } catch (error) {
+    console.error("Premium payment error:", error);
+
+    alert(
+      "❌ Payment start nahi ho saka.\n\n" +
+      (error.message ||
+        "Please thodi der baad dobara try karein.")
+    );
+
+    const subscribeButton =
+      document.querySelector(".subscribe-btn");
+
+    if (subscribeButton) {
+      subscribeButton.disabled = false;
+      subscribeButton.textContent =
+        "Premium Unlock Karein";
+    }
+  }
+}
 
     loadUpdates();
   </script>
