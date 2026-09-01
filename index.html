@@ -1141,7 +1141,265 @@
           behavior: "smooth"
         });
     }
+async function openAuthModal() {
+  if (document.getElementById("authModal")) return;
 
+  const modal = document.createElement("div");
+  modal.id = "authModal";
+
+  modal.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.65);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  `;
+
+  modal.innerHTML = `
+    <div style="
+      background:white;
+      width:100%;
+      max-width:420px;
+      border-radius:16px;
+      padding:25px;
+      box-shadow:0 10px 40px rgba(0,0,0,.25);
+    ">
+
+      <h2 style="
+        margin-top:0;
+        color:#123a8c;
+        text-align:center;
+      ">
+        🔐 ExamSathi AI Login
+      </h2>
+
+      <p style="
+        text-align:center;
+        color:#64748b;
+      ">
+        Premium aur personal features ke liye login karein.
+      </p>
+
+      <input
+        id="authEmail"
+        type="email"
+        placeholder="Email address"
+        style="
+          width:100%;
+          padding:13px;
+          margin:8px 0;
+          border:1px solid #cbd5e1;
+          border-radius:8px;
+          font-size:15px;
+        "
+      >
+
+      <input
+        id="authPassword"
+        type="password"
+        placeholder="Password"
+        style="
+          width:100%;
+          padding:13px;
+          margin:8px 0;
+          border:1px solid #cbd5e1;
+          border-radius:8px;
+          font-size:15px;
+        "
+      >
+
+      <button
+        id="loginAuthBtn"
+        style="
+          width:100%;
+          padding:13px;
+          margin-top:10px;
+          border:0;
+          border-radius:8px;
+          background:#123a8c;
+          color:white;
+          font-weight:bold;
+          font-size:15px;
+        "
+      >
+        🔑 Login
+      </button>
+
+      <button
+        id="signupAuthBtn"
+        style="
+          width:100%;
+          padding:13px;
+          margin-top:10px;
+          border:1px solid #123a8c;
+          border-radius:8px;
+          background:white;
+          color:#123a8c;
+          font-weight:bold;
+          font-size:15px;
+        "
+      >
+        📝 Create Account
+      </button>
+
+      <p
+        id="authMessage"
+        style="
+          text-align:center;
+          margin:15px 0 5px;
+          font-size:14px;
+        "
+      ></p>
+
+      <button
+        id="closeAuthBtn"
+        style="
+          width:100%;
+          padding:10px;
+          margin-top:5px;
+          border:0;
+          background:#f1f5f9;
+          border-radius:8px;
+        "
+      >
+        Close
+      </button>
+
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+
+  const emailInput =
+    document.getElementById("authEmail");
+
+  const passwordInput =
+    document.getElementById("authPassword");
+
+  const message =
+    document.getElementById("authMessage");
+
+  document
+    .getElementById("closeAuthBtn")
+    .onclick = () => modal.remove();
+
+  document
+    .getElementById("loginAuthBtn")
+    .onclick = async () => {
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !password) {
+        message.textContent =
+          "Email aur password dono bharein.";
+        return;
+      }
+
+      message.textContent = "Login ho raha hai...";
+
+      const { error } =
+        await supabaseClient.auth.signInWithPassword({
+          email,
+          password
+        });
+
+      if (error) {
+        message.textContent =
+          "❌ " + error.message;
+        return;
+      }
+
+      modal.remove();
+
+      updateAuthUI();
+
+      alert("✅ Login successful!");
+    };
+
+  document
+    .getElementById("signupAuthBtn")
+    .onclick = async () => {
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+
+      if (!email || !password) {
+        message.textContent =
+          "Email aur password dono bharein.";
+        return;
+      }
+
+      if (password.length < 6) {
+        message.textContent =
+          "Password kam se kam 6 characters ka hona chahiye.";
+        return;
+      }
+
+      message.textContent =
+        "Account create ho raha hai...";
+
+      const { data, error } =
+        await supabaseClient.auth.signUp({
+          email,
+          password
+        });
+
+      if (error) {
+        message.textContent =
+          "❌ " + error.message;
+        return;
+      }
+
+      if (data.session) {
+        modal.remove();
+        updateAuthUI();
+        alert("✅ Account created aur login ho gaya!");
+      } else {
+        message.textContent =
+          "✅ Account ban gaya! Email verification complete karke login karein.";
+      }
+    };
+}
+
+async function logoutUser() {
+  const { error } =
+    await supabaseClient.auth.signOut();
+
+  if (error) {
+    alert("Logout nahi ho saka: " + error.message);
+    return;
+  }
+
+  updateAuthUI();
+
+  alert("✅ Logout successful!");
+}
+
+async function updateAuthUI() {
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+  const loginBtn =
+    document.getElementById("loginBtn");
+
+  const logoutBtn =
+    document.getElementById("logoutBtn");
+
+  if (!loginBtn || !logoutBtn) return;
+
+  if (session) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "block";
+  } else {
+    loginBtn.style.display = "block";
+    logoutBtn.style.display = "none";
+  }
+    }
     async function subscribe() {
   const subscribeButton =
     document.querySelector(".subscribe-btn");
@@ -1333,7 +1591,7 @@
     }
   }
     }
-
+    updateAuthUI();
     loadUpdates();
   </script>
 
