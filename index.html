@@ -433,7 +433,7 @@
     "https://hzskmosmpqwqurtrqbza.supabase.co";
 
   const SUPABASE_ANON_KEY =
-    "YAHAN_TUMHARI_SUPABASE_PUBLISHABLE_KEY";
+    sb_publishable_zOLpGIbaEVV2nJdi2dnnNA_mai6SsTJ
 
   const supabaseClient =
     window.supabase.createClient(
@@ -1124,130 +1124,444 @@
     }
 
     async function subscribe() {
-  try {
-    // Check Supabase login session
-    const { data: { session }, error } =
-  await supabaseClient.auth.getSession();
+  const subscribeButton =
+    document.querySelector(".subscribe-btn");
 
-    if (sessionError || !session) {
-      alert(
-        "🔐 Premium purchase karne ke liye pehle login karein."
+  try {
+    // Check current Supabase session
+    const {
+      data: { session },
+      error: sessionError
+    } = await supabaseClient.auth.getSession();
+
+    if (sessionError) {
+      throw new Error(
+        sessionError.message ||
+        "Login session check nahi ho saka."
       );
+    }
+
+    // --------------------------------------------------
+    // LOGIN / SIGNUP MODAL
+    // --------------------------------------------------
+
+    if (!session) {
+      if (document.getElementById("authModal")) {
+        return;
+      }
+
+      const modal = document.createElement("div");
+
+      modal.id = "authModal";
+
+      modal.style.cssText = `
+        position:fixed;
+        inset:0;
+        background:rgba(0,0,0,.65);
+        z-index:9999;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        padding:20px;
+      `;
+
+      modal.innerHTML = `
+        <div style="
+          background:white;
+          width:100%;
+          max-width:420px;
+          border-radius:18px;
+          padding:25px;
+          box-shadow:0 20px 60px rgba(0,0,0,.25);
+        ">
+
+          <h2 style="
+            margin-top:0;
+            color:#123a8c;
+            text-align:center;
+          ">
+            🔐 ExamSathi AI Login
+          </h2>
+
+          <p style="
+            text-align:center;
+            color:#64748b;
+            line-height:1.5;
+          ">
+            Premium purchase karne ke liye
+            account me login karein.
+          </p>
+
+          <input
+            id="authEmail"
+            type="email"
+            placeholder="Email address"
+            style="
+              width:100%;
+              padding:13px;
+              margin-top:12px;
+              border:1px solid #cbd5e1;
+              border-radius:9px;
+              font-size:15px;
+            "
+          >
+
+          <input
+            id="authPassword"
+            type="password"
+            placeholder="Password"
+            style="
+              width:100%;
+              padding:13px;
+              margin-top:10px;
+              border:1px solid #cbd5e1;
+              border-radius:9px;
+              font-size:15px;
+            "
+          >
+
+          <button
+            id="loginBtn"
+            style="
+              width:100%;
+              margin-top:15px;
+              padding:13px;
+              border:0;
+              border-radius:9px;
+              background:#123a8c;
+              color:white;
+              font-weight:bold;
+              font-size:15px;
+            "
+          >
+            🔐 Login
+          </button>
+
+          <button
+            id="signupBtn"
+            style="
+              width:100%;
+              margin-top:10px;
+              padding:13px;
+              border:0;
+              border-radius:9px;
+              background:#2563eb;
+              color:white;
+              font-weight:bold;
+              font-size:15px;
+            "
+          >
+            📝 Create Account
+          </button>
+
+          <button
+            id="closeAuthBtn"
+            style="
+              width:100%;
+              margin-top:10px;
+              padding:11px;
+              border:1px solid #cbd5e1;
+              border-radius:9px;
+              background:#f8fafc;
+              color:#334155;
+              font-weight:bold;
+            "
+          >
+            Cancel
+          </button>
+
+          <div
+            id="authMessage"
+            style="
+              margin-top:15px;
+              text-align:center;
+              font-size:14px;
+              line-height:1.5;
+            "
+          ></div>
+
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+
+      const emailInput =
+        document.getElementById("authEmail");
+
+      const passwordInput =
+        document.getElementById("authPassword");
+
+      const authMessage =
+        document.getElementById("authMessage");
+
+      document
+        .getElementById("closeAuthBtn")
+        .onclick = () => {
+          modal.remove();
+        };
+
+      async function loginUser() {
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+        if (!email || !password) {
+          authMessage.style.color = "#dc2626";
+          authMessage.textContent =
+            "Email aur password dono bharein.";
+          return;
+        }
+
+        authMessage.style.color = "#475569";
+        authMessage.textContent =
+          "⏳ Login ho raha hai...";
+
+        const { error } =
+          await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+          });
+
+        if (error) {
+          authMessage.style.color = "#dc2626";
+          authMessage.textContent =
+            "❌ " + error.message;
+          return;
+        }
+
+        modal.remove();
+
+        await subscribe();
+      }
+
+      async function signupUser() {
+        const email =
+          emailInput.value.trim();
+
+        const password =
+          passwordInput.value;
+
+        if (!email || !password) {
+          authMessage.style.color = "#dc2626";
+          authMessage.textContent =
+            "Email aur password dono bharein.";
+          return;
+        }
+
+        if (password.length < 6) {
+          authMessage.style.color = "#dc2626";
+          authMessage.textContent =
+            "Password kam se kam 6 characters ka hona chahiye.";
+          return;
+        }
+
+        authMessage.style.color = "#475569";
+        authMessage.textContent =
+          "⏳ Account create ho raha hai...";
+
+        const { data, error } =
+          await supabaseClient.auth.signUp({
+            email,
+            password
+          });
+
+        if (error) {
+          authMessage.style.color = "#dc2626";
+          authMessage.textContent =
+            "❌ " + error.message;
+          return;
+        }
+
+        // Email confirmation enabled
+        if (!data.session) {
+          authMessage.style.color = "#15803d";
+          authMessage.textContent =
+            "✅ Account ban gaya.\n\n" +
+            "Email verify karke phir Premium button dabayein.";
+          return;
+        }
+
+        modal.remove();
+
+        await subscribe();
+      }
+
+      document
+        .getElementById("loginBtn")
+        .onclick = loginUser;
+
+      document
+        .getElementById("signupBtn")
+        .onclick = signupUser;
+
       return;
     }
 
-    const subscribeButton =
-      document.querySelector(".subscribe-btn");
+    // --------------------------------------------------
+    // USER IS LOGGED IN → CREATE RAZORPAY ORDER
+    // --------------------------------------------------
 
     if (subscribeButton) {
       subscribeButton.disabled = true;
-      subscribeButton.textContent = "⏳ Payment prepare ho raha hai...";
+      subscribeButton.textContent =
+        "⏳ Payment prepare ho raha hai...";
     }
 
-    // Create Razorpay order through secure Supabase Edge Function
     const response = await fetch(
       "https://hzskmosmpqwqurtrqbza.supabase.co/functions/v1/razorpay-payment",
       {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${session.access_token}`,
-          "apikey": SUPABASE_ANON_KEY,
-          "Content-Type": "application/json"
+          "Authorization":
+            `Bearer ${session.access_token}`,
+
+          "apikey":
+            SUPABASE_ANON_KEY,
+
+          "Content-Type":
+            "application/json"
         }
       }
     );
 
-    const result = await response.json();
+    const result =
+      await response.json();
 
     if (!response.ok || !result.success) {
       throw new Error(
-        result.error || "Payment order create nahi ho saka."
+        result.error ||
+        "Payment order create nahi ho saka."
       );
     }
 
-    // Open Razorpay Checkout
+    // --------------------------------------------------
+    // RAZORPAY CHECKOUT
+    // --------------------------------------------------
+
+    if (typeof Razorpay === "undefined") {
+      throw new Error(
+        "Razorpay Checkout load nahi hua."
+      );
+    }
+
     const options = {
+
       key: result.key_id,
+
       amount: result.amount,
+
       currency: result.currency,
+
       name: "ExamSathi AI",
-      description: "ExamSathi AI Premium - 45 Days",
-      order_id: result.order_id,
+
+      description:
+        "ExamSathi AI Premium - 45 Days",
+
+      order_id:
+        result.order_id,
 
       prefill: {
-        email: session.user.email || ""
+        email:
+          session.user.email || ""
       },
 
       notes: {
-        product: "ExamSathi AI Premium",
-        duration: "45 Days"
+        product:
+          "ExamSathi AI Premium",
+
+        duration:
+          "45 Days"
       },
 
       theme: {
         color: "#123a8c"
       },
 
-      handler: function (paymentResponse) {
-        alert(
-          "✅ Payment successful!\n\n" +
-          "Payment ID: " +
-          paymentResponse.razorpay_payment_id +
-          "\n\n" +
-          "Premium activation thodi der mein verify hogi."
-        );
+      handler:
+        function(paymentResponse) {
 
-        // Webhook Razorpay payment ko verify karke
-        // database mein premium access activate karega.
-      },
+          alert(
+            "✅ Payment complete!\n\n" +
+            "Payment ID: " +
+            paymentResponse
+              .razorpay_payment_id +
+            "\n\n" +
+            "Payment verification ke baad Premium activate hoga."
+          );
 
-      modal: {
-        ondismiss: function () {
           if (subscribeButton) {
             subscribeButton.disabled = false;
             subscribeButton.textContent =
               "Premium Unlock Karein";
           }
-        }
+        },
+
+      modal: {
+
+        ondismiss:
+          function() {
+
+            if (subscribeButton) {
+              subscribeButton.disabled = false;
+
+              subscribeButton.textContent =
+                "Premium Unlock Karein";
+            }
+          }
       }
     };
 
-    const razorpay = new Razorpay(options);
+    const razorpay =
+      new Razorpay(options);
 
-    razorpay.on("payment.failed", function (response) {
-      console.error(
-        "Razorpay payment failed:",
-        response.error
-      );
+    razorpay.on(
+      "payment.failed",
+      function(response) {
 
-      alert(
-        "❌ Payment failed.\n\n" +
-        (response.error?.description ||
-          "Please dobara try karein.")
-      );
+        console.error(
+          "Razorpay payment failed:",
+          response.error
+        );
 
-      if (subscribeButton) {
-        subscribeButton.disabled = false;
-        subscribeButton.textContent =
-          "Premium Unlock Karein";
+        alert(
+          "❌ Payment failed.\n\n" +
+          (
+            response.error?.description ||
+            "Please dobara try karein."
+          )
+        );
+
+        if (subscribeButton) {
+          subscribeButton.disabled = false;
+
+          subscribeButton.textContent =
+            "Premium Unlock Karein";
+        }
       }
-    });
+    );
 
     razorpay.open();
 
   } catch (error) {
-    console.error("Premium payment error:", error);
+
+    console.error(
+      "Premium payment error:",
+      error
+    );
 
     alert(
       "❌ Payment start nahi ho saka.\n\n" +
-      (error.message ||
-        "Please thodi der baad dobara try karein.")
+      (
+        error.message ||
+        "Please thodi der baad dobara try karein."
+      )
     );
-
-    const subscribeButton =
-      document.querySelector(".subscribe-btn");
 
     if (subscribeButton) {
       subscribeButton.disabled = false;
+
       subscribeButton.textContent =
         "Premium Unlock Karein";
     }
@@ -1259,28 +1573,3 @@
 
 </body>
 </html>
-
-Ab kya karna hai
-
-1. Apni current "index.html" ka poora code delete karo.
-2. Upar wala poora code paste karo.
-3. Save/Commit karo.
-4. Website kholo.
-
-Is version me ab:
-
-- Worker API se All-India updates load honge
-- Jobs filter
-- Admit Cards filter
-- Results filter
-- Answer Keys filter
-- Search
-- State filter
-- Exam filter
-- Details page
-- Official notification button
-- Apply Online button
-- AI chat
-- Voice input
-
-sab ek hi frontend me connected hain.
