@@ -1129,7 +1129,12 @@
     document.querySelector(".subscribe-btn");
 
   try {
-    // Check current Supabase session
+    if (subscribeButton) {
+      subscribeButton.disabled = true;
+      subscribeButton.textContent = "Payment start ho raha hai...";
+    }
+
+    // Check Supabase login session
     const {
       data: { session },
       error: sessionError
@@ -1142,274 +1147,13 @@
       );
     }
 
-    // --------------------------------------------------
-    // LOGIN / SIGNUP MODAL
-    // --------------------------------------------------
-
     if (!session) {
-      if (document.getElementById("authModal")) {
-        return;
-      }
-
-      const modal = document.createElement("div");
-
-      modal.id = "authModal";
-
-      modal.style.cssText = `
-        position:fixed;
-        inset:0;
-        background:rgba(0,0,0,.65);
-        z-index:9999;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:20px;
-      `;
-
-      modal.innerHTML = `
-        <div style="
-          background:white;
-          width:100%;
-          max-width:420px;
-          border-radius:18px;
-          padding:25px;
-          box-shadow:0 20px 60px rgba(0,0,0,.25);
-        ">
-
-          <h2 style="
-            margin-top:0;
-            color:#123a8c;
-            text-align:center;
-          ">
-            🔐 ExamSathi AI Login
-          </h2>
-
-          <p style="
-            text-align:center;
-            color:#64748b;
-            line-height:1.5;
-          ">
-            Premium purchase karne ke liye
-            account me login karein.
-          </p>
-
-          <input
-            id="authEmail"
-            type="email"
-            placeholder="Email address"
-            style="
-              width:100%;
-              padding:13px;
-              margin-top:12px;
-              border:1px solid #cbd5e1;
-              border-radius:9px;
-              font-size:15px;
-            "
-          >
-
-          <input
-            id="authPassword"
-            type="password"
-            placeholder="Password"
-            style="
-              width:100%;
-              padding:13px;
-              margin-top:10px;
-              border:1px solid #cbd5e1;
-              border-radius:9px;
-              font-size:15px;
-            "
-          >
-
-          <button
-            id="loginBtn"
-            style="
-              width:100%;
-              margin-top:15px;
-              padding:13px;
-              border:0;
-              border-radius:9px;
-              background:#123a8c;
-              color:white;
-              font-weight:bold;
-              font-size:15px;
-            "
-          >
-            🔐 Login
-          </button>
-
-          <button
-            id="signupBtn"
-            style="
-              width:100%;
-              margin-top:10px;
-              padding:13px;
-              border:0;
-              border-radius:9px;
-              background:#2563eb;
-              color:white;
-              font-weight:bold;
-              font-size:15px;
-            "
-          >
-            📝 Create Account
-          </button>
-
-          <button
-            id="closeAuthBtn"
-            style="
-              width:100%;
-              margin-top:10px;
-              padding:11px;
-              border:1px solid #cbd5e1;
-              border-radius:9px;
-              background:#f8fafc;
-              color:#334155;
-              font-weight:bold;
-            "
-          >
-            Cancel
-          </button>
-
-          <div
-            id="authMessage"
-            style="
-              margin-top:15px;
-              text-align:center;
-              font-size:14px;
-              line-height:1.5;
-            "
-          ></div>
-
-        </div>
-      `;
-
-      document.body.appendChild(modal);
-
-      const emailInput =
-        document.getElementById("authEmail");
-
-      const passwordInput =
-        document.getElementById("authPassword");
-
-      const authMessage =
-        document.getElementById("authMessage");
-
-      document
-        .getElementById("closeAuthBtn")
-        .onclick = () => {
-          modal.remove();
-        };
-
-      async function loginUser() {
-        const email =
-          emailInput.value.trim();
-
-        const password =
-          passwordInput.value;
-
-        if (!email || !password) {
-          authMessage.style.color = "#dc2626";
-          authMessage.textContent =
-            "Email aur password dono bharein.";
-          return;
-        }
-
-        authMessage.style.color = "#475569";
-        authMessage.textContent =
-          "⏳ Login ho raha hai...";
-
-        const { error } =
-          await supabaseClient.auth.signInWithPassword({
-            email,
-            password
-          });
-
-        if (error) {
-          authMessage.style.color = "#dc2626";
-          authMessage.textContent =
-            "❌ " + error.message;
-          return;
-        }
-
-        modal.remove();
-
-        await subscribe();
-      }
-
-      async function signupUser() {
-        const email =
-          emailInput.value.trim();
-
-        const password =
-          passwordInput.value;
-
-        if (!email || !password) {
-          authMessage.style.color = "#dc2626";
-          authMessage.textContent =
-            "Email aur password dono bharein.";
-          return;
-        }
-
-        if (password.length < 6) {
-          authMessage.style.color = "#dc2626";
-          authMessage.textContent =
-            "Password kam se kam 6 characters ka hona chahiye.";
-          return;
-        }
-
-        authMessage.style.color = "#475569";
-        authMessage.textContent =
-          "⏳ Account create ho raha hai...";
-
-        const { data, error } =
-          await supabaseClient.auth.signUp({
-            email,
-            password
-          });
-
-        if (error) {
-          authMessage.style.color = "#dc2626";
-          authMessage.textContent =
-            "❌ " + error.message;
-          return;
-        }
-
-        // Email confirmation enabled
-        if (!data.session) {
-          authMessage.style.color = "#15803d";
-          authMessage.textContent =
-            "✅ Account ban gaya.\n\n" +
-            "Email verify karke phir Premium button dabayein.";
-          return;
-        }
-
-        modal.remove();
-
-        await subscribe();
-      }
-
-      document
-        .getElementById("loginBtn")
-        .onclick = loginUser;
-
-      document
-        .getElementById("signupBtn")
-        .onclick = signupUser;
-
-      return;
+      throw new Error(
+        "Premium purchase karne ke liye pehle login karein."
+      );
     }
 
-    // --------------------------------------------------
-    // USER IS LOGGED IN → CREATE RAZORPAY ORDER
-    // --------------------------------------------------
-
-    if (subscribeButton) {
-      subscribeButton.disabled = true;
-      subscribeButton.textContent =
-        "⏳ Payment prepare ho raha hai...";
-    }
-
+    // Create Razorpay order through Supabase Edge Function
     const response = await fetch(
       "https://hzskmosmpqwqurtrqbza.supabase.co/functions/v1/razorpay-payment",
       {
@@ -1423,37 +1167,35 @@
 
           "Content-Type":
             "application/json"
-        }
+        },
+        body: JSON.stringify({
+          plan_id: 1
+        })
       }
     );
 
-    const result =
-      await response.json();
+    const result = await response.json();
 
     if (!response.ok || !result.success) {
       throw new Error(
         result.error ||
-        "Payment order create nahi ho saka."
+        "Razorpay order create nahi ho saka."
       );
     }
 
-    // --------------------------------------------------
-    // RAZORPAY CHECKOUT
-    // --------------------------------------------------
-
-    if (typeof Razorpay === "undefined") {
+    if (!result.order_id || !result.key_id) {
       throw new Error(
-        "Razorpay Checkout load nahi hua."
+        "Razorpay order response incomplete hai."
       );
     }
 
+    // Razorpay Checkout options
     const options = {
-
       key: result.key_id,
 
       amount: result.amount,
 
-      currency: result.currency,
+      currency: result.currency || "INR",
 
       name: "ExamSathi AI",
 
@@ -1465,7 +1207,7 @@
 
       prefill: {
         email:
-          session.user.email || ""
+          session.user?.email || ""
       },
 
       notes: {
@@ -1480,46 +1222,53 @@
         color: "#123a8c"
       },
 
-      handler:
-        function(paymentResponse) {
+      handler: function (paymentResponse) {
 
-          alert(
-            "✅ Payment complete!\n\n" +
-            "Payment ID: " +
-            paymentResponse
-              .razorpay_payment_id +
-            "\n\n" +
-            "Payment verification ke baad Premium activate hoga."
-          );
+        console.log(
+          "Razorpay payment response:",
+          paymentResponse
+        );
+
+        alert(
+          "✅ Payment successful!\n\n" +
+          "Payment ID: " +
+          paymentResponse.razorpay_payment_id +
+          "\n\n" +
+          "Premium verification ke baad activate hoga."
+        );
+
+        if (subscribeButton) {
+          subscribeButton.disabled = false;
+          subscribeButton.textContent =
+            "Premium Unlock Karein";
+        }
+      },
+
+      modal: {
+        ondismiss: function () {
 
           if (subscribeButton) {
             subscribeButton.disabled = false;
             subscribeButton.textContent =
               "Premium Unlock Karein";
           }
-        },
-
-      modal: {
-
-        ondismiss:
-          function() {
-
-            if (subscribeButton) {
-              subscribeButton.disabled = false;
-
-              subscribeButton.textContent =
-                "Premium Unlock Karein";
-            }
-          }
+        }
       }
     };
+
+    // Check Razorpay library
+    if (typeof Razorpay === "undefined") {
+      throw new Error(
+        "Razorpay Checkout load nahi hua."
+      );
+    }
 
     const razorpay =
       new Razorpay(options);
 
     razorpay.on(
       "payment.failed",
-      function(response) {
+      function (response) {
 
         console.error(
           "Razorpay payment failed:",
@@ -1536,7 +1285,6 @@
 
         if (subscribeButton) {
           subscribeButton.disabled = false;
-
           subscribeButton.textContent =
             "Premium Unlock Karein";
         }
@@ -1562,12 +1310,11 @@
 
     if (subscribeButton) {
       subscribeButton.disabled = false;
-
       subscribeButton.textContent =
         "Premium Unlock Karein";
     }
   }
-}
+    }
 
     loadUpdates();
   </script>
